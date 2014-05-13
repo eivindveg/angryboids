@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using UnityEngine.SocialPlatforms;
+
 public class BirdBehaviour : MonoBehaviour {
 
     float loadCounter;
@@ -22,7 +24,7 @@ public class BirdBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-	    if (this.state == BirdState.Ready || this.state == BirdState.Primed)
+	    if (this.state == BirdState.Ready || this.state == BirdState.Primed || this.state == BirdState.Loading)
 	    {
 	        this.gameObject.rigidbody2D.gravityScale = 0;
 	    }
@@ -38,7 +40,7 @@ public class BirdBehaviour : MonoBehaviour {
 
 	    if (deathTimer >= 5)
 	    {
-	        Destroy(this);
+	        Destroy(this.gameObject);
 	    }
 
 	}
@@ -75,6 +77,13 @@ public class BirdBehaviour : MonoBehaviour {
                     return true;
                 }
                 return this.state == newState;
+            case BirdState.Flying:
+                if (newState == BirdState.Landed)
+                {
+                    this.state = newState;
+                    return true;
+                }
+                return this.state == newState;
             default:
                 return false;
         }
@@ -85,7 +94,7 @@ public class BirdBehaviour : MonoBehaviour {
         return this.state;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionStay2D(Collision2D other)
     {
         Debug.Log("COLLISION!");
         if (this.state == BirdState.Flying)
