@@ -15,7 +15,8 @@ public class ThrowerScript : MonoBehaviour
 
     private float shotPotency;
 
-    private int loadTime;
+    // Load time from unsprung to fully sprung in seconds
+    private const float LoadTime = 4f;
 
     public enum BirdType
     {
@@ -29,7 +30,6 @@ public class ThrowerScript : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        loadTime = 0;
         availableBirds = new GameObject[Birds.Length];
 
         // TODO Populate and sort bird collection
@@ -111,7 +111,7 @@ public class ThrowerScript : MonoBehaviour
                 {
                     if (shotPotency <= 1.0f)
                     {
-                        shotPotency += 0.4f * Time.deltaTime;
+                        shotPotency += LoadTime * 0.25f * Time.deltaTime;
                         Debug.Log("Potency: " + shotPotency);
                     }
                 }
@@ -119,7 +119,7 @@ public class ThrowerScript : MonoBehaviour
                 {
                     if (birdScript.SetState(BirdBehaviour.BirdState.Flying))
                     {
-                        loadedBird.rigidbody2D.velocity = loadedBird.transform.right * shotPotency * 100;
+                        loadedBird.rigidbody2D.velocity = loadedBird.transform.right * shotPotency * 40;
                     }
                 }
                 break;
