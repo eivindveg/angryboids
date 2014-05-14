@@ -103,8 +103,10 @@ namespace Assets
 
         protected virtual void OnChanged()
         {
-            if (Changed != null)
+            if (Changed != null) { 
+                Debug.Log("Fired event!");
                 Changed(new BirdChangedEvent(this.gameObject, state));
+            }
         }
 
         private void OnCollisionStay2D(Collision2D other)

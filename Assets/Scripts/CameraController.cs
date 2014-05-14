@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
     public float SmoothTime = 0.15f;
 
-    public Transform Target;
+    private Transform target;
 
     private Vector3 velocity = Vector3.zero;
 
@@ -18,12 +18,14 @@ public class CameraController : MonoBehaviour
 
     public void OnBirdChange(BirdChangedEvent e)
     {
+        Debug.Log("CameraController received a changed event");
+
         if (e.State == BirdBehaviour.BirdState.Primed) { 
-            this.Target = e.Bird.transform;
+            this.target = e.Bird.transform;
         }
         else if (e.State == BirdBehaviour.BirdState.Landed)
         {
-            this.Target = null;
+            this.target = null;
         }
     }
 
@@ -35,6 +37,7 @@ public class CameraController : MonoBehaviour
     {
         foreach (GameObject bird in GameObject.FindGameObjectsWithTag("bird"))
         {
+            Debug.Log("Attaching to bird");
             var birdScript = bird.GetComponent<BirdBehaviour>();
             birdScript.Changed += this.OnBirdChange;
         }
@@ -43,10 +46,10 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (this.Target)
+        if (this.target)
         {
-            Vector3 point = this.camera.WorldToViewportPoint(this.Target.position);
-            Vector3 delta = this.Target.position - this.camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z));
+            Vector3 point = this.camera.WorldToViewportPoint(this.target.position);
+            Vector3 delta = this.target.position - this.camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z));
             Vector3 destination = this.transform.position + delta;
             this.transform.position = Vector3.SmoothDamp(
                 this.transform.position,

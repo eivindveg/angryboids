@@ -122,6 +122,7 @@ public class ThrowerScript : MonoBehaviour
                     if (birdScript.SetState(BirdBehaviour.BirdState.Flying))
                     {
                         loadedBird.rigidbody2D.velocity = loadedBird.transform.right * shotPotency * 40;
+                        shotPotency = 0;
                     }
                 }
                 break;
