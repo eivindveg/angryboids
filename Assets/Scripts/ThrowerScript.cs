@@ -22,7 +22,7 @@ public class ThrowerScript : MonoBehaviour
     public int ShotStrengthModifier = 40;
 
     // Load time from unsprung to fully sprung in seconds
-    private const float LoadTime = 4f;
+    private const float LoadTime = 3f;
 
     public enum BirdType
     {
@@ -120,7 +120,7 @@ public class ThrowerScript : MonoBehaviour
                 {
                     if (shotPotency <= 1.0f)
                     {
-                        shotPotency += LoadTime * 0.25f * Time.deltaTime;
+                        shotPotency += Time.deltaTime/LoadTime;
                         Debug.Log("Potency: " + shotPotency);
                     }
                 }
