@@ -111,7 +111,7 @@
                         this.loadedBird.transform.position,
                         this.transform.position,
                         Time.deltaTime);
-                    if (Vector3.Distance(this.loadedBird.transform.position, this.transform.position) < 0.5f)
+                    if (Vector3.Distance(this.loadedBird.transform.position, this.transform.position) < 0.1f)
                     {
                         birdScript.SetState(BirdBehaviour.BirdState.Ready);
                     }

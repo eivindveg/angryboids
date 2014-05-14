@@ -12,6 +12,8 @@
 
         private float loadCounter;
 
+        private Vector3 velocity = Vector3.zero;
+        private Vector3 oldPosition;
         private BirdState state = BirdState.Idle;
 
         #endregion
@@ -152,6 +154,23 @@
             if (this.deathTimer >= 3)
             {
                 Destroy(this.gameObject);
+            }
+            if (Vector3.Distance(oldPosition, transform.position) > 0.1f) { 
+                this.oldPosition = this.transform.position;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (this.state == BirdState.Flying)
+            {
+                var newRotation = this.transform.rotation;
+
+                newRotation.z = Vector3.Angle(this.transform.position, oldPosition);
+
+                this.transform.rotation = newRotation;
+
+
             }
         }
 

@@ -25,7 +25,6 @@ public class SpecialBirdBehaviour : MonoBehaviour
 	void Update () {
 	    if (birdScript.GetState() == BirdBehaviour.BirdState.Flying && !fired)
 	    {
-	        this.transform.rotation = (Quaternion.Euler(this.transform.right));
 	        flyTimer += Time.deltaTime;
 	        if (flyTimer > 0.2 && Input.GetAxis("Fire1") > 0.1f)
 	        {
