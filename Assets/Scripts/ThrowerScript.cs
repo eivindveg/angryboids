@@ -1,157 +1,175 @@
-﻿using System;
-using System.Linq;
-
-using Assets;
-
-using UnityEngine;
-
-using System.Collections;
-
-using Object = UnityEngine.Object;
-
-public class ThrowerScript : MonoBehaviour
+﻿namespace Assets.Scripts
 {
-    private GameObject[] availableBirds;
+    using System;
+    using System.Linq;
 
-    private int loadedBirdIndex;
+    using UnityEngine;
 
-    private GameObject loadedBird;
-
-    private float shotPotency;
-
-    public int ShotStrengthModifier = 23;
-
-    // Load time from unsprung to fully sprung in seconds
-    private const float LoadTime = 2f;
-
-    public enum BirdType
+    public class ThrowerScript : MonoBehaviour
     {
-        Normal,
+        #region Constants
 
-        Special
-    }
+        private const float LoadTime = 2f;
 
-    public BirdType[] Birds;
+        #endregion
 
-    // Use this for initialization
-    private void Start()
-    {
-        availableBirds = new GameObject[Birds.Length];
+        #region Fields
 
-        // TODO Populate and sort bird collection
-        int i = 0;
+        public BirdBehaviour.BirdType[] Birds;
 
-        foreach (string birdToLoad in this.Birds.Select(bird => bird == BirdType.Special ? "SpecialBird" : "NormalBird")
-            )
+        public int ShotStrengthModifier = 23;
+
+        private GameObject[] availableBirds;
+
+        private GameObject loadedBird;
+
+        private int loadedBirdIndex;
+
+        private float shotPotency;
+
+        #endregion
+
+        #region Methods
+
+        private void LoadBird(int index)
         {
-            this.availableBirds[i] = (GameObject)Instantiate(Resources.Load(birdToLoad));
-
-            Vector3 birdPosition = new Vector3(
-                this.transform.position.x - 1 - (1 * i),
-                this.transform.position.y,
-                this.transform.position.z);
-            this.availableBirds[i].transform.position = birdPosition;
-            i++;
+            var birdScript = this.availableBirds[index].GetComponent<BirdBehaviour>();
+            if (birdScript.SetState(BirdBehaviour.BirdState.Loading))
+            {
+                this.loadedBird = this.availableBirds[index];
+            }
         }
 
-        foreach (GameObject birds in availableBirds)
+        private void Rotate(float rotation)
         {
-            Debug.Log(birds.name);
+            Vector3 oldRotation = this.loadedBird.transform.rotation.eulerAngles;
+            Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, oldRotation.z + rotation));
+
+            float angle = Quaternion.Angle(Quaternion.Euler(new Vector3(0,0,0)), newRotation);
+            Debug.Log(angle);
+            if (angle <= 80) { 
+                this.loadedBird.transform.rotation = newRotation;
+            }
+            
+            Debug.Log("Rotating to " + this.loadedBird.transform.rotation.y);
         }
 
-        // TODO Load first bird
-        BirdBehaviour firstBirdScript = availableBirds[0].GetComponent<BirdBehaviour>();
-        if (firstBirdScript.SetState(BirdBehaviour.BirdState.Loading))
+        private void Start()
         {
-            Debug.Log("loading a bird");
+            this.availableBirds = new GameObject[this.Birds.Length];
 
-            // TODO Replace with firing movement instead of teleport
-            loadedBirdIndex = 0;
-            this.LoadBird(loadedBirdIndex);
+            // TODO Populate and sort bird collection
+            int i = 0;
+
+            foreach (
+                string birdToLoad in this.Birds.Select(bird => bird == BirdBehaviour.BirdType.Special ? "SpecialBird" : "NormalBird"))
+            {
+                this.availableBirds[i] = (GameObject)Instantiate(Resources.Load(birdToLoad));
+
+                var birdPosition = new Vector3(
+                    this.transform.position.x - 1 - (1 * i),
+                    this.transform.position.y,
+                    this.transform.position.z);
+                this.availableBirds[i].transform.position = birdPosition;
+                i++;
+            }
+
+            foreach (GameObject birds in this.availableBirds)
+            {
+                Debug.Log(birds.name);
+            }
+
+            // TODO Load first bird
+            var firstBirdScript = this.availableBirds[0].GetComponent<BirdBehaviour>();
+            if (firstBirdScript.SetState(BirdBehaviour.BirdState.Loading))
+            {
+                Debug.Log("loading a bird");
+
+                // TODO Replace with firing movement instead of teleport
+                this.loadedBirdIndex = 0;
+                this.LoadBird(this.loadedBirdIndex);
+            }
+
+            var camScript = FindObjectOfType<CameraController>();
+            camScript.LocateAndAssignBirds();
         }
 
-        CameraController camScript = FindObjectOfType<CameraController>();
-        camScript.LocateAndAssignBirds();
-    }
+        @ImplicitlyUsed
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (loadedBird == null)
+        private void Update()
         {
-            loadedBirdIndex++;
-            this.LoadBird(loadedBirdIndex);
-        }
+            if (this.loadedBird == null)
+            {
+                this.loadedBirdIndex++;
+                this.LoadBird(this.loadedBirdIndex);
+            }
 
-        BirdBehaviour birdScript = loadedBird.GetComponent<BirdBehaviour>();
-        Debug.Log(birdScript.GetState());
-        switch (birdScript.GetState())
-        {
-            case BirdBehaviour.BirdState.Loading:
-                loadedBird.transform.position = Vector3.Lerp(
-                    loadedBird.transform.position,
-                    this.transform.position,
-                    Time.deltaTime);
-                if (Vector3.Distance(loadedBird.transform.position, this.transform.position) < 1.0f)
-                {
-                    birdScript.SetState(BirdBehaviour.BirdState.Ready);
-                }
-                else
-                {
-                    Debug.Log(Vector3.Distance(loadedBird.transform.position, this.transform.position));
-                }
-                break;
-            case BirdBehaviour.BirdState.Ready:
-                if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
-                {
-                    loadedBird.transform.position = transform.position;
-                    this.Rotate(Input.GetAxis("Vertical"));
-                    Debug.Log("Vertical axis is: " + Input.GetAxis("Vertical"));
-                }
-                if (Input.GetAxis("Fire1") > 0.1f)
-                {
-                    birdScript.SetState(BirdBehaviour.BirdState.Primed);
-                }
-                break;
-                // If bird primed
-            case BirdBehaviour.BirdState.Primed:
-                // Check for fired input;
-                if (Input.GetAxis("Fire1") > 0.1f)
-                {
-                    if (shotPotency <= 1.0f)
+            var birdScript = this.loadedBird.GetComponent<BirdBehaviour>();
+            Debug.Log(birdScript.GetState());
+            switch (birdScript.GetState())
+            {
+                case BirdBehaviour.BirdState.Loading:
+                    this.loadedBird.transform.position = Vector3.Lerp(
+                        this.loadedBird.transform.position,
+                        this.transform.position,
+                        Time.deltaTime);
+                    if (Vector3.Distance(this.loadedBird.transform.position, this.transform.position) < 0.5f)
                     {
-                        shotPotency += Time.deltaTime/LoadTime;
-                        Debug.Log("Potency: " + shotPotency);
+                        birdScript.SetState(BirdBehaviour.BirdState.Ready);
                     }
-                }
-                else
-                {
-                    if (birdScript.SetState(BirdBehaviour.BirdState.Flying))
+                    else
                     {
-                        loadedBird.rigidbody2D.velocity = loadedBird.transform.right * shotPotency * ShotStrengthModifier;
-                        shotPotency = 0;
+                        Debug.Log(Vector3.Distance(this.loadedBird.transform.position, this.transform.position));
                     }
-                }
-                break;
-            case BirdBehaviour.BirdState.Flying:
-                Debug.Log(loadedBird.rigidbody2D.velocity.magnitude);
-                break;
+                    break;
+                case BirdBehaviour.BirdState.Ready:
+                    if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
+                    {
+                        this.Rotate(Input.GetAxis("Vertical"));
+                    }
+                    if (Input.GetAxis("Fire1") > 0.1f)
+                    {
+                        birdScript.SetState(BirdBehaviour.BirdState.Primed);
+                    }
+                    break;
+                    // If bird primed
+                case BirdBehaviour.BirdState.Primed:
+                    // Check for fired input;
+                    this.Translate();
+                    if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
+                    {
+                        this.Rotate(Input.GetAxis("Vertical"));  
+                    }
+                    if (Input.GetAxis("Fire1") > 0.1f)
+                    {
+                        if (this.shotPotency <= 1.0f)
+                        {
+                            this.shotPotency += Time.deltaTime / LoadTime;
+                            Debug.Log("Potency: " + this.shotPotency);
+                        }
+                    }
+                    else
+                    {
+                        if (birdScript.SetState(BirdBehaviour.BirdState.Flying))
+                        {
+                            this.loadedBird.rigidbody2D.velocity = this.loadedBird.transform.right * this.shotPotency
+                                                                   * this.ShotStrengthModifier;
+                            this.shotPotency = 0;
+                        }
+                    }
+                    break;
+                case BirdBehaviour.BirdState.Flying:
+                    Debug.Log(this.loadedBird.rigidbody2D.velocity.magnitude);
+                    break;
+            }
         }
-    }
 
-    private void LoadBird(int index)
-    {
-        BirdBehaviour birdScript = this.availableBirds[index].GetComponent<BirdBehaviour>();
-        if (birdScript.SetState(BirdBehaviour.BirdState.Loading)) { 
-            loadedBird = availableBirds[index];
+        private void Translate()
+        {
+            Vector3 relativeDirection = -loadedBird.transform.right;
+            this.loadedBird.transform.position = this.transform.position + 1.2f*shotPotency*relativeDirection;
         }
-    }
 
-    private void Rotate(float rotation)
-    {
-        Vector3 oldRotation = loadedBird.transform.rotation.eulerAngles;
-        Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, oldRotation.z + rotation));
-        loadedBird.transform.rotation = newRotation;
-        Debug.Log("Rotating to " + loadedBird.transform.rotation.y);
+        #endregion
     }
 }

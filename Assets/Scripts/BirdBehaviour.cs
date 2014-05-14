@@ -1,14 +1,11 @@
-﻿using UnityEngine;
-
-namespace Assets
+﻿namespace Assets
 {
+    using UnityEngine;
 
     public delegate void BirdStateEventHandler(BirdChangedEvent e);
 
     public class BirdBehaviour : MonoBehaviour
     {
-
-        public event BirdStateEventHandler Changed;
         #region Fields
 
         private float deathTimer;
@@ -16,6 +13,12 @@ namespace Assets
         private float loadCounter;
 
         private BirdState state = BirdState.Idle;
+
+        #endregion
+
+        #region Public Events
+
+        public event BirdStateEventHandler Changed;
 
         #endregion
 
@@ -34,6 +37,13 @@ namespace Assets
             Flying,
 
             Landed
+        }
+
+        public enum BirdType
+        {
+            Normal,
+
+            Special
         }
 
         #endregion
@@ -103,9 +113,10 @@ namespace Assets
         protected virtual void OnChanged()
         {
             Debug.Log("Attempting to fire change event!");
-            if (Changed != null) { 
+            if (this.Changed != null)
+            {
                 Debug.Log("Fired event!");
-                Changed(new BirdChangedEvent(this.gameObject, state));
+                this.Changed(new BirdChangedEvent(this.gameObject, this.state));
             }
         }
 

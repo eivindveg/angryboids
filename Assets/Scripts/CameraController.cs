@@ -19,8 +19,8 @@ public class CameraController : MonoBehaviour
     public void OnBirdChange(BirdChangedEvent e)
     {
         Debug.Log("CameraController received a changed event");
-
-        if (e.State == BirdBehaviour.BirdState.Ready || e.State == BirdBehaviour.BirdState.Primed) { 
+        if(e.State != BirdBehaviour.BirdState.Landed)
+        {
             this.target = e.Bird.transform;
         }
         else if (e.State == BirdBehaviour.BirdState.Landed)
