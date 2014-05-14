@@ -19,6 +19,8 @@ public class ThrowerScript : MonoBehaviour
 
     private float shotPotency;
 
+    public int ShotStrengthModifier = 40;
+
     // Load time from unsprung to fully sprung in seconds
     private const float LoadTime = 4f;
 
@@ -126,7 +128,7 @@ public class ThrowerScript : MonoBehaviour
                 {
                     if (birdScript.SetState(BirdBehaviour.BirdState.Flying))
                     {
-                        loadedBird.rigidbody2D.velocity = loadedBird.transform.right * shotPotency * 40;
+                        loadedBird.rigidbody2D.velocity = loadedBird.transform.right * shotPotency * ShotStrengthModifier;
                         shotPotency = 0;
                     }
                 }
