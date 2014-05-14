@@ -12,6 +12,7 @@
 
         private float loadCounter;
 
+        private Vector3 oldPosition;
         private BirdState state = BirdState.Idle;
 
         #endregion
@@ -140,7 +141,15 @@
             {
                 this.gameObject.rigidbody2D.gravityScale = 1;
             }
-            if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
+            if (this.state == BirdState.Flying)
+            {
+                Quaternion newRotation = Quaternion.LookRotation(rigidbody2D.velocity);
+                newRotation.z = -newRotation.x;
+                newRotation.y = 0;
+                newRotation.x = 0;
+                this.transform.rotation = newRotation;
+            }
+            else if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
             {
                 this.deathTimer += Time.deltaTime;
             }
@@ -153,6 +162,14 @@
             {
                 Destroy(this.gameObject);
             }
+            if (Vector3.Distance(oldPosition, transform.position) > 0.1f) { 
+                this.oldPosition = this.transform.position;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            
         }
 
         #endregion

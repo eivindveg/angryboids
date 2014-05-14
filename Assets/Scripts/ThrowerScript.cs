@@ -33,6 +33,10 @@
 
         private void LoadBird(int index)
         {
+            if (index >= availableBirds.Length)
+            {
+                return;
+            }
             var birdScript = this.availableBirds[index].GetComponent<BirdBehaviour>();
             if (birdScript.SetState(BirdBehaviour.BirdState.Loading))
             {
@@ -111,7 +115,7 @@
                         this.loadedBird.transform.position,
                         this.transform.position,
                         Time.deltaTime);
-                    if (Vector3.Distance(this.loadedBird.transform.position, this.transform.position) < 0.5f)
+                    if (Vector3.Distance(this.loadedBird.transform.position, this.transform.position) < 0.1f)
                     {
                         birdScript.SetState(BirdBehaviour.BirdState.Ready);
                     }
