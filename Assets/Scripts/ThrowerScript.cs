@@ -94,8 +94,6 @@
             camScript.LocateAndAssignBirds();
         }
 
-        @ImplicitlyUsed
-
         private void Update()
         {
             if (this.loadedBird == null)
