@@ -1,105 +1,147 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-using UnityEngine.SocialPlatforms;
+namespace Assets
+{
 
-public class BirdBehaviour : MonoBehaviour {
 
-    float loadCounter;
+    
 
-    private float deathTimer;
-
-    public enum BirdState
+    public class BirdBehaviour : MonoBehaviour
     {
-        Idle, Loading, Ready, Primed, Flying, Landed
-    }
 
-    private BirdState state = BirdState.Idle;
+        public event BirdStateEventHandler Changed;
+        #region Fields
 
-	// Use this for initialization
-	void Start () {
+        private float deathTimer;
 
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	    if (this.state == BirdState.Ready || this.state == BirdState.Primed || this.state == BirdState.Loading)
-	    {
-	        this.gameObject.rigidbody2D.gravityScale = 0;
-	    }
-	    else this.gameObject.rigidbody2D.gravityScale = 1;
-	    if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
-	    {
-	        deathTimer += Time.deltaTime;
-	    }
-	    else
-	    {
-	        deathTimer = 0;
-	    }
+        private float loadCounter;
 
-	    if (deathTimer >= 5)
-	    {
-	        Destroy(this.gameObject);
-	    }
+        private BirdState state = BirdState.Idle;
 
-	}
+        #endregion
 
-    public bool SetState(BirdState newState)
-    {
-        switch (this.state)
+        #region Enums
+
+        public enum BirdState
         {
-            case BirdState.Idle:
-                if (newState == BirdState.Loading)
-                {
-                    this.state = newState;
-                    return true;
-                }
-                return this.state == newState;
-            case BirdState.Loading:
-                if (newState == BirdState.Ready)
-                {
-                    this.state = newState;
-                    return true;
-                }
-                return this.state == newState;
-            case BirdState.Ready:
-                if (newState == BirdState.Primed)
-                {
-                    this.state = newState;
-                    return true;
-                }
-                return newState == this.state;
-            case BirdState.Primed:
-                if (newState == BirdState.Flying)
-                {
-                    this.state = newState;
-                    return true;
-                }
-                return this.state == newState;
-            case BirdState.Flying:
-                if (newState == BirdState.Landed)
-                {
-                    this.state = newState;
-                    return true;
-                }
-                return this.state == newState;
-            default:
-                return false;
+            Idle,
+
+            Loading,
+
+            Ready,
+
+            Primed,
+
+            Flying,
+
+            Landed
         }
-    }
 
-    public BirdState GetState()
-    {
-        return this.state;
-    }
+        #endregion
 
-    void OnCollisionStay2D(Collision2D other)
-    {
-        Debug.Log("COLLISION!");
-        if (this.state == BirdState.Flying)
+        // Use this for initialization
+
+        #region Public Methods and Operators
+
+        public BirdState GetState()
         {
-            this.SetState(BirdState.Landed);
+            return this.state;
         }
+
+        public bool SetState(BirdState newState)
+        {
+            switch (this.state)
+            {
+                case BirdState.Idle:
+                    if (newState == BirdState.Loading)
+                    {
+                        this.state = newState;
+                        this.OnChanged();
+                        return true;
+                    }
+                    return this.state == newState;
+                case BirdState.Loading:
+                    if (newState == BirdState.Ready)
+                    {
+                        this.state = newState;
+                        this.OnChanged();
+                        return true;
+                    }
+                    return this.state == newState;
+                case BirdState.Ready:
+                    if (newState == BirdState.Primed)
+                    {
+                        this.state = newState;
+                        this.OnChanged();
+                        return true;
+                    }
+                    return newState == this.state;
+                case BirdState.Primed:
+                    if (newState == BirdState.Flying)
+                    {
+                        this.state = newState;
+                        this.OnChanged();
+                        return true;
+                    }
+                    return this.state == newState;
+                case BirdState.Flying:
+                    if (newState == BirdState.Landed)
+                    {
+                        this.state = newState;
+                        this.OnChanged();
+                        return true;
+                    }
+                    return this.state == newState;
+                default:
+                    return false;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected virtual void OnChanged()
+        {
+            if (Changed != null)
+                Changed(new BirdChangedEvent(this.gameObject, state));
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            Debug.Log("COLLISION!");
+            if (this.state == BirdState.Flying)
+            {
+                this.SetState(BirdState.Landed);
+            }
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            if (this.state == BirdState.Ready || this.state == BirdState.Primed || this.state == BirdState.Loading)
+            {
+                this.gameObject.rigidbody2D.gravityScale = 0;
+            }
+            else
+            {
+                this.gameObject.rigidbody2D.gravityScale = 1;
+            }
+            if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
+            {
+                this.deathTimer += Time.deltaTime;
+            }
+            else
+            {
+                this.deathTimer = 0;
+            }
+
+            if (this.deathTimer >= 5)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        #endregion
     }
 }
