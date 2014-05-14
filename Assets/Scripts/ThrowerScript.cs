@@ -7,6 +7,8 @@ using UnityEngine;
 
 using System.Collections;
 
+using Object = UnityEngine.Object;
+
 public class ThrowerScript : MonoBehaviour
 {
     private GameObject[] availableBirds;
@@ -65,6 +67,9 @@ public class ThrowerScript : MonoBehaviour
             loadedBirdIndex = 0;
             this.LoadBird(loadedBirdIndex);
         }
+
+        CameraController camScript = FindObjectOfType<CameraController>();
+        camScript.LocateAndAssignBirds();
     }
 
     // Update is called once per frame

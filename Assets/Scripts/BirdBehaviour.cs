@@ -102,6 +102,7 @@ namespace Assets
 
         protected virtual void OnChanged()
         {
+            Debug.Log("Attempting to fire change event!");
             if (Changed != null) { 
                 Debug.Log("Fired event!");
                 Changed(new BirdChangedEvent(this.gameObject, state));

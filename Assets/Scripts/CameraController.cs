@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     #region Fields
 
-    public float SmoothTime = 0.15f;
+    public float SmoothTime = 0.05f;
 
     private Transform target;
 
@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     {
         Debug.Log("CameraController received a changed event");
 
-        if (e.State == BirdBehaviour.BirdState.Primed) { 
+        if (e.State == BirdBehaviour.BirdState.Ready || e.State == BirdBehaviour.BirdState.Primed) { 
             this.target = e.Bird.transform;
         }
         else if (e.State == BirdBehaviour.BirdState.Landed)
@@ -35,6 +35,11 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        
+    }
+
+    public void LocateAndAssignBirds()
+    {
         foreach (GameObject bird in GameObject.FindGameObjectsWithTag("bird"))
         {
             Debug.Log("Attaching to bird");
@@ -43,20 +48,31 @@ public class CameraController : MonoBehaviour
         }
     }
 
+
+
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
+        Vector3 destination = this.transform.position;
+
+        if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Horizontal") < -0.1f)
+        {
+            target = null;
+            destination.x += Input.GetAxis("Horizontal");
+
+        }
+
         if (this.target)
         {
             Vector3 point = this.camera.WorldToViewportPoint(this.target.position);
-            Vector3 delta = this.target.position - this.camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z));
-            Vector3 destination = this.transform.position + delta;
-            this.transform.position = Vector3.SmoothDamp(
-                this.transform.position,
-                destination,
-                ref this.velocity,
-                this.SmoothTime);
+            Vector3 delta = this.target.position - this.camera.ViewportToWorldPoint(new Vector3(0.5f, point.y, point.z));
+            destination += delta;
         }
+        this.transform.position = Vector3.SmoothDamp(
+        this.transform.position,
+        destination,
+        ref this.velocity,
+        this.SmoothTime);
     }
 
     #endregion
