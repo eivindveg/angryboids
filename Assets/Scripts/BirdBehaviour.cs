@@ -142,7 +142,15 @@
             {
                 this.gameObject.rigidbody2D.gravityScale = 1;
             }
-            if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
+            if (this.state == BirdState.Flying)
+            {
+                Quaternion newRotation = Quaternion.LookRotation(rigidbody2D.velocity);
+                newRotation.z = -newRotation.x;
+                newRotation.y = 0;
+                newRotation.x = 0;
+                this.transform.rotation = newRotation;
+            }
+            else if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
             {
                 this.deathTimer += Time.deltaTime;
             }
@@ -162,16 +170,7 @@
 
         private void FixedUpdate()
         {
-            if (this.state == BirdState.Flying)
-            {
-                var newRotation = this.transform.rotation;
-
-                newRotation.z = Vector3.Angle(this.transform.position, oldPosition);
-
-                this.transform.rotation = newRotation;
-
-
-            }
+            
         }
 
         #endregion
