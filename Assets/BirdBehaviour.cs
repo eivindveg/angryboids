@@ -4,7 +4,7 @@ namespace Assets
 {
 
 
-    public delegate void BirdStateEventHandler(BirdChangedEvent e);
+    
 
     public class BirdBehaviour : MonoBehaviour
     {
@@ -56,6 +56,7 @@ namespace Assets
                     if (newState == BirdState.Loading)
                     {
                         this.state = newState;
+                        this.OnChanged();
                         return true;
                     }
                     return this.state == newState;
@@ -63,6 +64,7 @@ namespace Assets
                     if (newState == BirdState.Ready)
                     {
                         this.state = newState;
+                        this.OnChanged();
                         return true;
                     }
                     return this.state == newState;
@@ -70,6 +72,7 @@ namespace Assets
                     if (newState == BirdState.Primed)
                     {
                         this.state = newState;
+                        this.OnChanged();
                         return true;
                     }
                     return newState == this.state;
@@ -77,6 +80,7 @@ namespace Assets
                     if (newState == BirdState.Flying)
                     {
                         this.state = newState;
+                        this.OnChanged();
                         return true;
                     }
                     return this.state == newState;
@@ -84,6 +88,7 @@ namespace Assets
                     if (newState == BirdState.Landed)
                     {
                         this.state = newState;
+                        this.OnChanged();
                         return true;
                     }
                     return this.state == newState;
@@ -96,10 +101,10 @@ namespace Assets
 
         #region Methods
 
-        protected virtual void OnChanged(BirdChangedEvent e)
+        protected virtual void OnChanged()
         {
             if (Changed != null)
-                Changed(e);
+                Changed(new BirdChangedEvent(this.gameObject, state));
         }
 
         private void OnCollisionStay2D(Collision2D other)
