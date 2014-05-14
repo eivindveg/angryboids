@@ -12,7 +12,6 @@
 
         private float loadCounter;
 
-        private Vector3 velocity = Vector3.zero;
         private Vector3 oldPosition;
         private BirdState state = BirdState.Idle;
 

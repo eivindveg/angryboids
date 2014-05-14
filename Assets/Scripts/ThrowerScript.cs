@@ -33,6 +33,10 @@
 
         private void LoadBird(int index)
         {
+            if (index >= availableBirds.Length)
+            {
+                return;
+            }
             var birdScript = this.availableBirds[index].GetComponent<BirdBehaviour>();
             if (birdScript.SetState(BirdBehaviour.BirdState.Loading))
             {
