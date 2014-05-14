@@ -19,10 +19,10 @@ public class ThrowerScript : MonoBehaviour
 
     private float shotPotency;
 
-    public int ShotStrengthModifier = 40;
+    public int ShotStrengthModifier = 23;
 
     // Load time from unsprung to fully sprung in seconds
-    private const float LoadTime = 3f;
+    private const float LoadTime = 2f;
 
     public enum BirdType
     {
@@ -47,7 +47,7 @@ public class ThrowerScript : MonoBehaviour
             this.availableBirds[i] = (GameObject)Instantiate(Resources.Load(birdToLoad));
 
             Vector3 birdPosition = new Vector3(
-                this.transform.position.x - 2 - (2 * i),
+                this.transform.position.x - 1 - (1 * i),
                 this.transform.position.y,
                 this.transform.position.z);
             this.availableBirds[i].transform.position = birdPosition;

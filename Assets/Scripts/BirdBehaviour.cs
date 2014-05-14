@@ -138,7 +138,7 @@ namespace Assets
                 this.deathTimer = 0;
             }
 
-            if (this.deathTimer >= 5)
+            if (this.deathTimer >= 3)
             {
                 Destroy(this.gameObject);
             }
