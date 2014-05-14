@@ -14,7 +14,7 @@ public class BrickCollision : MonoBehaviour
 
 	void Start ()
 	{
-        _renderer = gameObject.AddComponent<SpriteRenderer>();
+        _renderer = gameObject.GetComponent<SpriteRenderer>();
 	    _renderer.sprite = sprite[0];
         _currentHp = Maxhp;	  
 	}
@@ -30,7 +30,7 @@ public class BrickCollision : MonoBehaviour
         double magnitudeMass = (double)(collision.relativeVelocity.magnitude * collision.gameObject.rigidbody2D.mass);
         Debug.Log(magnitudeMass);
         
-        if (magnitudeMass > 5)
+        if (magnitudeMass >= 2)
         {
             _currentHp = _currentHp - magnitudeMass;        
         }
