@@ -3,8 +3,7 @@
 namespace Assets
 {
 
-
-    
+    public delegate void BirdStateEventHandler(BirdChangedEvent e);
 
     public class BirdBehaviour : MonoBehaviour
     {

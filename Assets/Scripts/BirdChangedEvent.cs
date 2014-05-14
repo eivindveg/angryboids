@@ -4,7 +4,6 @@
 
     using UnityEngine;
 
-    public delegate void BirdStateEventHandler(BirdChangedEvent e);
 
     public class BirdChangedEvent : EventArgs
     {
