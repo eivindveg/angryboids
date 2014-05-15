@@ -12,11 +12,11 @@
 
         public double Maxhp;
 
-        public Sprite[] sprite = new Sprite[5];
+        public Sprite[] Sprites = new Sprite[5];
 
-        public BrickType type;
+        public BrickType Type;
 
-        private double _currentHp;
+        private double currentHp;
 
         private SpriteRenderer _renderer;
 
@@ -49,26 +49,26 @@
 
             if (magnitudeMass >= 2)
             {
-                this._currentHp = this._currentHp - magnitudeMass;
+                this.currentHp = this.currentHp - magnitudeMass;
             }
 
-            if (this._currentHp <= 0)
+            if (this.currentHp <= 0)
             {
-                this._renderer.sprite = this.sprite[4];
+                this._renderer.sprite = this.Sprites[4];
                 this.OnDeath();
                 Destroy(this.gameObject);
             }
-            if (this._currentHp < (this.Maxhp * 0.8) && this._currentHp > (this.Maxhp * 0.6))
+            if (this.currentHp < (this.Maxhp * 0.8) && this.currentHp > (this.Maxhp * 0.6))
             {
-                this._renderer.sprite = this.sprite[1];
+                this._renderer.sprite = this.Sprites[1];
             }
-            else if (this._currentHp < (this.Maxhp * 0.6) && this._currentHp > (this.Maxhp * 0.4))
+            else if (this.currentHp < (this.Maxhp * 0.6) && this.currentHp > (this.Maxhp * 0.4))
             {
-                this._renderer.sprite = this.sprite[2];
+                this._renderer.sprite = this.Sprites[2];
             }
-            if (this._currentHp < (this.Maxhp * 0.4) && this._currentHp > (this.Maxhp * 0.2))
+            if (this.currentHp < (this.Maxhp * 0.4) && this.currentHp > (this.Maxhp * 0.2))
             {
-                this._renderer.sprite = this.sprite[3];
+                this._renderer.sprite = this.Sprites[3];
             }
         }
 
@@ -76,15 +76,15 @@
         {
             if (this.Death != null)
             {
-                this.Death(new BlockDeathEvent(this.type, this.gameObject));
+                this.Death(new BlockDeathEvent(this.Type, this.gameObject));
             }
         }
 
         private void Start()
         {
             this._renderer = this.gameObject.GetComponent<SpriteRenderer>();
-            this._renderer.sprite = this.sprite[0];
-            this._currentHp = this.Maxhp;
+            this._renderer.sprite = this.Sprites[0];
+            this.currentHp = this.Maxhp;
         }
 
         #endregion
