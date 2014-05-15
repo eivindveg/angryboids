@@ -114,9 +114,9 @@
             // Draw Slingshot
             if (birdScript.GetState() == BirdBehaviour.BirdState.Primed)
             {
-                lineRenderer.SetPosition(0, new Vector2(-0.2f, 0));
+                lineRenderer.SetPosition(0, new Vector2(-0.1f, 0.5f));
                 lineRenderer.SetPosition(1, birdScript.gameObject.transform.position);
-                lineRenderer.SetPosition(2, birdScript.gameObject.transform.position);
+                lineRenderer.SetPosition(2, new Vector2(0.1f, 0.5f));
             }
             else
             {
