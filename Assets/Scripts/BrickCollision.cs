@@ -44,7 +44,7 @@
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //Calculate damage made by the collision
-            double magnitudeMass = collision.relativeVelocity.magnitude * collision.gameObject.rigidbody2D.mass;
+            double magnitudeMass = collision.relativeVelocity.magnitude * (collision.gameObject.rigidbody2D.mass + this.rigidbody2D.mass);
             Debug.Log(magnitudeMass);
 
             if (magnitudeMass >= 2)
