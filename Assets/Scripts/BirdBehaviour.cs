@@ -1,21 +1,25 @@
-﻿using UnityEngine;
-
-namespace Assets
+﻿namespace Assets
 {
+    using UnityEngine;
 
     public delegate void BirdStateEventHandler(BirdChangedEvent e);
 
     public class BirdBehaviour : MonoBehaviour
     {
-
-        public event BirdStateEventHandler Changed;
         #region Fields
 
         private float deathTimer;
 
         private float loadCounter;
 
+        private Vector3 oldPosition;
         private BirdState state = BirdState.Idle;
+
+        #endregion
+
+        #region Public Events
+
+        public event BirdStateEventHandler Changed;
 
         #endregion
 
@@ -34,6 +38,13 @@ namespace Assets
             Flying,
 
             Landed
+        }
+
+        public enum BirdType
+        {
+            Normal,
+
+            Special
         }
 
         #endregion
@@ -103,9 +114,10 @@ namespace Assets
         protected virtual void OnChanged()
         {
             Debug.Log("Attempting to fire change event!");
-            if (Changed != null) { 
+            if (this.Changed != null)
+            {
                 Debug.Log("Fired event!");
-                Changed(new BirdChangedEvent(this.gameObject, state));
+                this.Changed(new BirdChangedEvent(this.gameObject, this.state));
             }
         }
 
@@ -129,7 +141,15 @@ namespace Assets
             {
                 this.gameObject.rigidbody2D.gravityScale = 1;
             }
-            if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
+            if (this.state == BirdState.Flying)
+            {
+                Quaternion newRotation = Quaternion.LookRotation(rigidbody2D.velocity);
+                newRotation.z = -newRotation.x;
+                newRotation.y = 0;
+                newRotation.x = 0;
+                this.transform.rotation = newRotation;
+            }
+            else if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
             {
                 this.deathTimer += Time.deltaTime;
             }
@@ -138,12 +158,14 @@ namespace Assets
                 this.deathTimer = 0;
             }
 
-            if (this.deathTimer >= 5)
+            if (this.deathTimer >= 3)
             {
                 Destroy(this.gameObject);
             }
+            if (Vector3.Distance(oldPosition, transform.position) > 0.1f) { 
+                this.oldPosition = this.transform.position;
+            }
         }
-
         #endregion
     }
 }

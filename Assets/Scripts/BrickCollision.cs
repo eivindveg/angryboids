@@ -1,58 +1,97 @@
-﻿using System;
-using System.Runtime.Serialization.Formatters;
-using UnityEngine;
-using System.Collections;
-
-public class BrickCollision : MonoBehaviour
+﻿namespace Assets.Scripts
 {
+    using UnityEngine;
 
-	// Use this for initialization
-    private double _currentHp;
-    public double Maxhp;
-    public Sprite[] sprite = new Sprite[5];
-    private SpriteRenderer _renderer;
+    public delegate void BlockDeathEventHandler(BlockDeathEvent e);
 
-	void Start ()
-	{
-        _renderer = gameObject.GetComponent<SpriteRenderer>();
-	    _renderer.sprite = sprite[0];
-        _currentHp = Maxhp;	  
-	}
-
-    void Update () 
+    public class BrickCollision : MonoBehaviour
     {
-	    
-	}
+        // Use this for initialization
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //Calculate damage made by the collision
-        double magnitudeMass = (double)(collision.relativeVelocity.magnitude * collision.gameObject.rigidbody2D.mass);
-        Debug.Log(magnitudeMass);
-        
-        if (magnitudeMass >= 2)
+        #region Fields
+
+        public double Maxhp;
+
+        public Sprite[] Sprites = new Sprite[5];
+
+        public BrickType Type;
+
+        private double currentHp;
+
+        private SpriteRenderer _renderer;
+
+        #endregion
+
+        #region Public Events
+
+        public event BlockDeathEventHandler Death;
+
+        #endregion
+
+        #region Enums
+
+        public enum BrickType
         {
-            _currentHp = _currentHp - magnitudeMass;        
+            Pig,
+
+            Block
         }
 
-        if (_currentHp <= 0)
+        #endregion
+
+        #region Methods
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            _renderer.sprite = sprite[4];
-            Destroy(gameObject);
-      
+            //Calculate damage made by the collision
+            double magnitudeMass = collision.relativeVelocity.magnitude * collision.gameObject.rigidbody2D.mass;
+            Debug.Log(magnitudeMass);
+
+            if (magnitudeMass >= 2)
+            {
+                this.currentHp = this.currentHp - magnitudeMass;
+            }
+
+            if (this.currentHp <= 0)
+            {
+                this._renderer.sprite = this.Sprites[4];
+                this.OnDeath();
+                Destroy(this.gameObject);
+            }
+            if (this.currentHp < (this.Maxhp * 0.8) && this.currentHp > (this.Maxhp * 0.6))
+            {
+                this._renderer.sprite = this.Sprites[1];
+            }
+            else if (this.currentHp < (this.Maxhp * 0.6) && this.currentHp > (this.Maxhp * 0.4))
+            {
+                this._renderer.sprite = this.Sprites[2];
+            }
+            if (this.currentHp < (this.Maxhp * 0.4) && this.currentHp > (this.Maxhp * 0.2))
+            {
+                this._renderer.sprite = this.Sprites[3];
+            }
         }
-        if (_currentHp < (Maxhp * 0.8) && _currentHp > (Maxhp * 0.6))
+
+        private void OnDeath()
         {
-            _renderer.sprite = sprite[1];
+            GameObject poff = (GameObject)Instantiate(Resources.Load("poff"));
+            poff.transform.position = this.transform.position;
+            if (this.Death != null)
+            {
+                this.Death(new BlockDeathEvent(this.Type, this.gameObject));
+            }
         }
-        else if (_currentHp < (Maxhp*0.6) && _currentHp > (Maxhp*0.4))
+
+        private void Start()
         {
-            _renderer.sprite = sprite[2];
+            // Register with GameMaster
+            FindObjectOfType<GameMaster>().RegisterBrick(this);
+
+            this._renderer = this.gameObject.GetComponent<SpriteRenderer>();
+            this._renderer.sprite = this.Sprites[0];
+            this.currentHp = this.Maxhp;
         }
-        if (_currentHp < (Maxhp * 0.4) && _currentHp > (Maxhp * 0.2))
-        {
-            _renderer.sprite = sprite[3];
-        }
-            
+
+        #endregion
     }
 }
