@@ -28,6 +28,26 @@
 
         private int remainingPigs;
 
+		private int remainingBirds;
+
+		public struct LevelInfo
+		{
+			bool levelWin {get; private set;}
+			int birdsRemaining {get; private set;}
+			int score {get; private set;}
+
+			public LevelInfo(bool levelWin, int birdsRemaining, int score)
+			{
+				this.levelWin = levelWin;
+				this.birdsRemaining = birdsRemaining;
+				this.score = score;
+			}
+		}
+
+		public static LevelInfo levelInfo;
+
+	 
+
         #endregion
 
         #region Public Properties
@@ -38,15 +58,17 @@
 
         #region Public Methods and Operators
 
-        public void CheckHighscore()
+        public static bool CheckHighscore(int score)
         {
-            if (this.Score > this.GetHighScore())
+            if (score > this.GetHighScore())
             {
-                PlayerPrefs.SetInt("HighScore", this.Score);
-            }
+                PlayerPrefs.SetInt("HighScore", score);
+				return true;
+			}
+			return false;
         }
 
-        public int GetHighScore()
+        public static int GetHighScore()
         {
             string key = this.levelPrefsKey + Separator + "HighScore";
 
@@ -80,6 +102,35 @@
                 }
             }
         }
+
+		private void OnBirdChange (BirdChangedEvent e)
+		{
+			if (e.GetType () == BirdBehaviour.BirdState.Landed)
+			{
+				remainingBirds--;
+
+				if(this.remainingBirds <= 0 && this.remainingPigs >= 1) 
+				{
+					levelInfo = new LevelInfo(false, remainingBirds, this.Score);
+
+				} else if(this.remainingPigs <= 0)
+					levelInfo = new LevelInfo(true, remainingBirds, this.Score);
+				{
+
+				}
+			}
+		}
+
+		public void LocateAndAssignBirds()
+		{
+			foreach (GameObject bird in GameObject.FindGameObjectsWithTag("bird"))
+			{
+				remainingBirds++;
+				Debug.Log("Attaching to bird");
+				var birdScript = bird.GetComponent<BirdBehaviour>();
+				birdScript.Changed += this.OnBirdChange;
+			}
+		}
 
         private void Start()
         {
