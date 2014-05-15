@@ -6,13 +6,15 @@ namespace Assets.Scripts
     {
 
         private int remainingPigs;
-
+		public GUIText scoreGUItext;
+		private string defaultScoreText = "Score: ";
         public int Score { get; private set; }
 
         // Use this for initialization
         void Start ()
         {
             this.Score = 0;
+			scoreGUItext.text = defaultScoreText + Score;
         }
 
         public void RegisterBrick(BrickCollision brick)
