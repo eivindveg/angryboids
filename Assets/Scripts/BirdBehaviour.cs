@@ -166,12 +166,6 @@
                 this.oldPosition = this.transform.position;
             }
         }
-
-        private void FixedUpdate()
-        {
-            
-        }
-
         #endregion
     }
 }

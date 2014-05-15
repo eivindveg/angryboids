@@ -74,6 +74,8 @@
 
         private void OnDeath()
         {
+            // Register with GameMaster
+            FindObjectOfType<GameMaster>().RegisterBrick(this);
             if (this.Death != null)
             {
                 this.Death(new BlockDeathEvent(this.Type, this.gameObject));
