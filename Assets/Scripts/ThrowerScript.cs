@@ -31,17 +31,18 @@
 
         #region Methods
 
-        private void LoadBird(int index)
+        private GameObject LoadBird(int index)
         {
             if (index >= availableBirds.Length)
             {
-                return;
+                return null;
             }
             var birdScript = this.availableBirds[index].GetComponent<BirdBehaviour>();
             if (birdScript.SetState(BirdBehaviour.BirdState.Loading))
             {
                 this.loadedBird = this.availableBirds[index];
             }
+            return loadedBird;
         }
 
         private void Rotate(float rotation)
@@ -103,7 +104,10 @@
             if (this.loadedBird == null)
             {
                 this.loadedBirdIndex++;
-                this.LoadBird(this.loadedBirdIndex);
+                if (this.LoadBird(this.loadedBirdIndex) == null)
+                {
+                    return;
+                }
             }
 
             var birdScript = this.loadedBird.GetComponent<BirdBehaviour>();
