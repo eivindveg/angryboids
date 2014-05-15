@@ -5,7 +5,7 @@ namespace Assets.Scripts
     public class GameMaster : MonoBehaviour
     {
 
-        private int Pigs;
+        private int remainingPigs;
 
         public int Score { get; private set; }
 
@@ -21,18 +21,33 @@ namespace Assets.Scripts
 
             if (brick.Type == BrickCollision.BrickType.Pig)
             {
-                Pigs++;
+                this.remainingPigs++;
             }
         }
 
+        /*
+        public void CheckHighscore()
+        {
+            if (this.Score > this.Highscore)
+            {
+                this.Highscore = this.Score;
+                Debug.Log("New highscore: " + this.Highscore + "!");
+            }
+            else
+            {
+                Debug.Log("You scored " + this.Score + " Score!");
+                Debug.Log("Highscore: " + this.Highscore);
+            }
+        }
+        */
         void BlockDeathEventHandler(BlockDeathEvent e)
         {
             this.Score += (int)e.Value;
             if (e.Type == BrickCollision.BrickType.Pig)
             {
-                Pigs--;
+                this.remainingPigs--;
 
-                if (Pigs <= 0)
+                if (this.remainingPigs <= 0)
                 {
                     // WIN-R, WIN-R, CHIC-N, DIN-R
                 }
