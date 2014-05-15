@@ -74,8 +74,8 @@
 
         private void OnDeath()
         {
-            // Register with GameMaster
-            FindObjectOfType<GameMaster>().RegisterBrick(this);
+            GameObject poff = (GameObject)Instantiate(Resources.Load("poff"));
+            poff.transform.position = this.transform.position;
             if (this.Death != null)
             {
                 this.Death(new BlockDeathEvent(this.Type, this.gameObject));
@@ -84,6 +84,9 @@
 
         private void Start()
         {
+            // Register with GameMaster
+            FindObjectOfType<GameMaster>().RegisterBrick(this);
+
             this._renderer = this.gameObject.GetComponent<SpriteRenderer>();
             this._renderer.sprite = this.Sprites[0];
             this.currentHp = this.Maxhp;
