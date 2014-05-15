@@ -27,21 +27,19 @@ namespace Assets.Scripts
             }
         }
 
-        /*
         public void CheckHighscore()
         {
-            if (this.Score > this.Highscore)
+            if (this.Score > GetHighScore())
             {
-                this.Highscore = this.Score;
-                Debug.Log("New highscore: " + this.Highscore + "!");
-            }
-            else
-            {
-                Debug.Log("You scored " + this.Score + " Score!");
-                Debug.Log("Highscore: " + this.Highscore);
+                PlayerPrefs.SetInt("HighScore", this.Score);
             }
         }
-        */
+
+        public int GetHighScore()
+        {
+            return PlayerPrefs.HasKey("HighScore") ? PlayerPrefs.GetInt("HighScore") : 0;
+        }
+
         void BlockDeathEventHandler(BlockDeathEvent e)
         {
             this.Score += (int)e.Value;
