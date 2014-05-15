@@ -27,6 +27,8 @@
 
         private float shotPotency;
 
+        private LineRenderer lineRenderer;
+
         #endregion
 
         #region Methods
@@ -61,6 +63,7 @@
         private void Start()
         {
             this.availableBirds = new GameObject[this.Birds.Length];
+            lineRenderer = this.GetComponent<LineRenderer>();
 
             // TODO Populate and sort bird collection
             int i = 0;
@@ -107,6 +110,21 @@
             }
 
             var birdScript = this.loadedBird.GetComponent<BirdBehaviour>();
+
+            // Draw Slingshot
+            if (birdScript.GetState() == BirdBehaviour.BirdState.Primed)
+            {
+                lineRenderer.SetPosition(0, new Vector2(-0.2f, 0));
+                lineRenderer.SetPosition(1, birdScript.gameObject.transform.position);
+                lineRenderer.SetPosition(2, birdScript.gameObject.transform.position);
+            }
+            else
+            {
+                lineRenderer.SetPosition(0, new Vector3());
+                lineRenderer.SetPosition(1, new Vector3());
+                lineRenderer.SetPosition(2, new Vector3());
+            }
+
             Debug.Log(birdScript.GetState());
             switch (birdScript.GetState())
             {
