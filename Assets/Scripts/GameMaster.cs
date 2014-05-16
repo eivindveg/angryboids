@@ -163,6 +163,10 @@
             this.ScoreGuItext.text = DefaultScoreText + this.Score;
         }
 
+        private bool LevelTransition (LevelInfo lvlInfo) {
+                    
+        }
+
         #endregion
     }
 }
