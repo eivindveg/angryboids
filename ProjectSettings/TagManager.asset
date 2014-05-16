@@ -7,6 +7,12 @@ TagManager:
   - 
   - homeButton
   - 
+  - slingshotseat
+  - 
+  - bird
+  - 
+  - slingshot
+  - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
   Builtin Layer 2: Ignore Raycast
@@ -43,4 +49,8 @@ TagManager:
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: sortinglayer
+    userID: 1
+    uniqueID: 3270109685
     locked: 0
