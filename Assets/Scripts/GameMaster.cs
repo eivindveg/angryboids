@@ -123,7 +123,7 @@
 				{
 					// LOOSE
 					WinOrLoose.text="Level failed!";
-					GameObject g = Instantiate(Resources.Load("levelFinish"));
+					GameObject g = (GameObject)Instantiate(Resources.Load("levelFinish"));
 					Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
 					LvlInfo = new LevelInfo(false, remainingBirds, this.Score);
 				} 
