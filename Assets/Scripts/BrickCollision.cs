@@ -14,6 +14,8 @@
 
         public Sprite[] Sprites = new Sprite[5];
 
+        public AudioClip[] Sounds;
+
         public BrickType Type;
 
         private double currentHp;
@@ -35,7 +37,9 @@
             Pig,
 
             Block
+
         }
+        
 
         #endregion
 
@@ -46,7 +50,12 @@
             //Calculate damage made by the collision
             double magnitudeMass = collision.relativeVelocity.magnitude * (collision.gameObject.rigidbody2D.mass + this.rigidbody2D.mass);
             Debug.Log(magnitudeMass);
-
+            //play collision sound
+            if (this.Type == BrickType.Block && Time.realtimeSinceStartup > 2f)
+            {
+                int soundIndex = Random.Range(0, this.Sounds.Length);
+                this.audio.PlayOneShot(this.Sounds[soundIndex]);
+            }   
             if (magnitudeMass >= 1.5)
             {
                 this.currentHp = this.currentHp - magnitudeMass;
@@ -86,7 +95,8 @@
         {
             // Register with GameMaster
             FindObjectOfType<GameMaster>().RegisterBrick(this);
-
+            this.gameObject.AddComponent<AudioSource>();
+            this.gameObject.audio.volume = 0.3f;
             this._renderer = this.gameObject.GetComponent<SpriteRenderer>();
             this._renderer.sprite = this.Sprites[0];
             this.currentHp = this.Maxhp;
