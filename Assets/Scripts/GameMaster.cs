@@ -126,9 +126,8 @@
 					// LOOSE
 					WinOrLoose.text="Level failed!";
 
-                    // Instantiate levelFinish on camera?!
+                    // Instantiate levelFinish on camera
 					GameObject g = (GameObject)Instantiate(Resources.Load("levelFinish"));
-				    
                     g.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
 					Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
 					LvlInfo = new LevelInfo(false, remainingBirds, this.Score);
