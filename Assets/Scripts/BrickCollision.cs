@@ -50,7 +50,7 @@
             //Calculate damage made by the collision
             double magnitudeMass = collision.relativeVelocity.magnitude * (collision.gameObject.rigidbody2D.mass + this.rigidbody2D.mass);
             //play collision sound
-            if (this.Type == BrickType.Block && Time.realtimeSinceStartup > 2f && !ButtonScript.mute)
+            if (this.Type == BrickType.Block && Time.realtimeSinceStartup > 2f)
             {
                 int soundIndex = Random.Range(0, this.Sounds.Length);
                 this.audio.PlayOneShot(this.Sounds[soundIndex]);
