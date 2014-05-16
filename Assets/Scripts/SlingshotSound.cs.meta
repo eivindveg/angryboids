@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 6ddc3b4bb61c15548a2c593992538f60
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - slingSound: {fileID: 8300000, guid: f247f12be2b0db04eae1aa84d12adfc9, type: 3}
+  - flyingSound: {fileID: 8300000, guid: f10ec103552b6904d9bbaeb3d73a87cb, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

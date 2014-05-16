@@ -13,7 +13,6 @@ GameObject:
   - 114: {fileID: 11400000}
   - 212: {fileID: 21200000}
   - 82: {fileID: 8200000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: pig
@@ -28,8 +27,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.1081924, y: -1.6638056, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 4.19292014e-08, w: 1}
+  m_LocalPosition: {x: 19.1956158, y: -2.16635084, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,12 +82,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_PlayOnAwake: 0
+  m_Volume: .300000012
+  m_Pitch: .829999983
   Loop: 0
   Mute: 0
-  Priority: 128
+  Priority: 62
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -151,19 +150,6 @@ MonoBehaviour:
   - {fileID: 21300062, guid: d1c05fdeeb4eba24193ee49c81b0facd, type: 3}
   - {fileID: 21300094, guid: d1c05fdeeb4eba24193ee49c81b0facd, type: 3}
   Type: 0
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b032c9ccd297b4dbb336ce54708ce5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volume: 10
-  mute: 0
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,13 +161,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e58161387f17f4b86964ed685fa779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voice_1: {fileID: 8300000, guid: f56652320f7dd4c40bdaf955908263ad, type: 3}
-  voice_2: {fileID: 8300000, guid: 538366023dc60424ca4138f539139f45, type: 3}
-  voice_3: {fileID: 8300000, guid: a149c57e133995b46a7db8843019d328, type: 3}
-  voice_4: {fileID: 8300000, guid: 95b3e5891ad5d154485c1f037d25c4c0, type: 3}
-  volume: 10
-  minPause: 1
-  maxPause: 8
+  MaxPause: 8
+  MinPause: 1
+  Voices:
+  - {fileID: 8300000, guid: f56652320f7dd4c40bdaf955908263ad, type: 3}
+  - {fileID: 8300000, guid: 538366023dc60424ca4138f539139f45, type: 3}
+  - {fileID: 8300000, guid: a149c57e133995b46a7db8843019d328, type: 3}
+  - {fileID: 8300000, guid: 95b3e5891ad5d154485c1f037d25c4c0, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
