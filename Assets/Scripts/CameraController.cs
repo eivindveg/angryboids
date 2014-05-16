@@ -60,15 +60,11 @@ namespace Assets.Scripts
                 destination.x += Input.GetAxis("Horizontal");
             }
 
-            if (this.target)
+            if (this.target != null)
             {
-                Transform transform1 = this.target;
-                if (transform1 != null)
-                {
-                    Vector3 point = this.camera.WorldToViewportPoint(transform1.position);
-                    Vector3 delta = transform1.position - this.camera.ViewportToWorldPoint(new Vector3(0.5f, point.y, point.z));
-                    destination += delta;
-                }
+                Vector3 point = this.camera.WorldToViewportPoint(this.target.position);
+                Vector3 delta = this.target.position - this.camera.ViewportToWorldPoint(new Vector3(0.5f, point.y, point.z));
+                destination += delta;
             }
             this.transform.position = Vector3.SmoothDamp(
                 this.transform.position,

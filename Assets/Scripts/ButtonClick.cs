@@ -1,16 +1,31 @@
 ﻿namespace Assets.Scripts 
 {
+    using UnityEditor;
 
-	using UnityEngine;
+    using UnityEngine;
 	using System.Collections;
 
 	public class ButtonClick : MonoBehaviour {
 
-		public TextMesh winOrLoose;
-		public bool endState;
+//		private TextMesh winOrLoose;
+//		public bool EndState;
+//
+//	    public ButtonClick(TextMesh winOrLoose)
+//	    {
+//	        this.winOrLoose = winOrLoose;
+//	    }
 
-		// Use this for initialization
-		void Start () {
+	    private int nextScene;
+
+	    // Use this for initialization
+		void Start ()
+		{
+		    nextScene = Application.loadedLevel+1;
+
+		    if (nextScene >= Application.levelCount)
+		    {
+		        nextScene = 0;
+		    }
 
 
 		}
@@ -26,16 +41,14 @@
 			Debug.Log ("Button pushed");
 
 			if (gameObject.name == "button_home") {
-				// Application.LoadLevel("home");
-				winOrLoose.text="Home"; 
+				Application.LoadLevel(0);
 
 			} else if (gameObject.name == "button_replay") {
-				// Application.LoadLevel(1);
-				winOrLoose.text="Replay";
+				Application.LoadLevel(Application.loadedLevel);
 
-			} else if (gameObject.name == "button_next") {
-				// Application.LoadLevel(2);
-				winOrLoose.text="Next";
+			} else if (gameObject.name == "button_next")
+			{
+			    Application.LoadLevel(nextScene);
 
 			}
 		}  

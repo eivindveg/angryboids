@@ -30,7 +30,9 @@
 
         #region Fields
 
-        public GUIText ScoreGuiText;
+        private GUIText ScoreGuiText;
+
+        private GUIText HighScoreGuiText;
 
         public TextMesh WinOrLoose;
 
@@ -62,7 +64,9 @@
         {
             if (score > GetHighScore())
             {
-                PlayerPrefs.SetInt("HighScore", score);
+                string key = levelPrefsKey + Separator + "HighScore";
+
+                PlayerPrefs.SetInt(key, score);
                 return true;
             }
             return false;
@@ -129,21 +133,27 @@
 
         private void Start()
         {
+            GameObject scoreObject = (GameObject)Instantiate(Resources.Load("OnScreenText"));
+            scoreObject.transform.position = new Vector3(scoreObject.transform.position.x, 0.86f, scoreObject.transform.position.z);
+            ScoreGuiText = scoreObject.GetComponent<GUIText>();
+
             LockControls = false;
-            string currentScene = EditorApplication.currentScene;
-            currentScene = (currentScene.Substring((currentScene.Length - 1)));
-            levelPrefsKey = "level" + currentScene;
+            int level = Application.loadedLevel - 1;
+            levelPrefsKey = "level" + level;
 
             this.highScore = GetHighScore();
             if (this.highScore > 0)
             {
                 this.IsClear = true;
+                HighScoreGuiText = ((GameObject)Instantiate(Resources.Load("OnScreenText"))).GetComponent<GUIText>();
             }
         }
 
         private void StartLevelTransition(LevelInfo lvlInfo)
         {
             LockControls = true;
+
+            // Faux singleton implementation.
             if (endScreen != null)
             {
                 return;
@@ -151,14 +161,14 @@
             
             if (lvlInfo.LevelWin)
             {
+                CheckHighscore(lvlInfo.Score);
                 // WIN
                 this.WinOrLoose.text = "Level cleared!";
-
+                this.Score = lvlInfo.Score;
                 // Instantiate levelFinish on camera
                 endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
                 endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
-                LvlInfo = new LevelInfo(true, this.remainingBirds, this.Score);
             }
             else
             {
@@ -169,7 +179,6 @@
                 endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
                 endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
-                LvlInfo = new LevelInfo(false, this.remainingBirds, this.Score);
             }
 
             //g = (GameObject)Instantiate(Resources.Load("levelFinish"));
@@ -179,6 +188,10 @@
         private void Update()
         {
             this.ScoreGuiText.text = DefaultScoreText + this.Score;
+            if (this.IsClear)
+            {
+                this.HighScoreGuiText.text = DefaultHighScoreText + this.highScore;
+            }
 
             if (!this.SceneOver)
             {
@@ -210,7 +223,7 @@
             {
                 this.LevelWin = levelWin;
                 this.BirdsRemaining = birdsRemaining;
-                this.Score = score;
+                this.Score = score + birdsRemaining*10000;
             }
 
             #endregion
