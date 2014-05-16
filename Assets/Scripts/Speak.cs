@@ -1,45 +1,52 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts
+{
+    using UnityEngine;
 
-public class Speak : MonoBehaviour {
-	
-	public AudioClip voice_1; //Lydklippene det skal velges fra
-	public AudioClip voice_2;
-	public AudioClip voice_3;
-	public AudioClip voice_4;
-	
-	public float volume = 10;
+    public class Speak : MonoBehaviour
+    {
+        #region Fields
 
-	public float minPause = 1; //Minimum tid i sekunder før neste lyd kan spilles
-	public float maxPause = 8; //Maksimum tid i sekunder før neste lyd spilles
-	
+        public float MaxPause = 8f; //Maksimum tid i sekunder før neste lyd spilles
 
-	private double timeCounter=0.0;
-	private double randomTime = 0.0;
+        public float MinPause = 1f; //Minimum tid i sekunder før neste lyd kan spilles
 
-	AudioClip[] voices; //Liste med lydklipp
+        public AudioClip[] Voices; //Liste med lydklipp
 
+        private float randomTime;
 
-	void Start () {
-		voices = new AudioClip[] {voice_1,voice_2,voice_3,voice_4};
-	}
-	
+        private float timeCounter;
 
-	void Update () {
-		useVoice ();
-		timeCounter += Time.deltaTime;
-	}
+        #endregion
 
-	//Spiller av en tilfeldig lyd og venter et tilfeldig antall sekunder
-	void useVoice(){
-		if (timeCounter > randomTime) {
-			SoundSys soundSys = GetComponent<SoundSys>();
-			randomTime = Random.Range (minPause, maxPause);
-			timeCounter = 0.0;
-			soundSys.PlaySoundOnce (voices [Random.Range (0, voices.Length)]);
-		}
+        #region Methods
 
-	}
+        private void Start()
+        {
+            this.randomTime = Random.Range(this.MinPause, this.MaxPause);
+        }
 
+        private void Update()
+        {
+            if (this.timeCounter > this.randomTime)
+            {
+                this.UseVoice();
+            }
+            this.timeCounter += Time.deltaTime;
+        }
 
+        //Spiller av en tilfeldig lyd og venter et tilfeldig antall sekunder
+        private void UseVoice()
+        {
+            if (audio.isPlaying)
+            {
+                return;
+            }
+            this.randomTime = Random.Range(this.MinPause, this.MaxPause);
+            this.timeCounter = 0f;
+            int soundIndex = Random.Range(0, this.Voices.Length);
+            this.audio.PlayOneShot(this.Voices[soundIndex]);
+        }
+
+        #endregion
+    }
 }

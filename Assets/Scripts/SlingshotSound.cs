@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class SlingshotSound : MonoBehaviour {
+namespace Assets.Scripts
+{
+    public class SlingshotSound : MonoBehaviour {
 
-	public AudioClip slingSound;
-	public AudioClip flyingSound;
+        public AudioClip SlingSound;
+        public AudioClip FlyingSound;
 	
 
-	public void playSling(){
-		gameObject.GetComponent<SoundSys>().PlaySoundOnce (slingSound);
-	}
+        public void PlaySling(){
+            this.audio.PlayOneShot(this.SlingSound);
+        }
 
-	public void playSvoosj(){
-		gameObject.GetComponent<SoundSys>().PlaySoundOnce (flyingSound);
-	}
+        public void PlayRelease(){
+            this.audio.PlayOneShot (this.FlyingSound);
+        }
+    }
 }
 	

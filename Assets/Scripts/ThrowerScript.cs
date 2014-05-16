@@ -153,7 +153,10 @@
                     }
                     if (Input.GetAxis("Fire1") > 0.1f)
                     {
-                        birdScript.SetState(BirdBehaviour.BirdState.Primed);
+                        if (birdScript.SetState(BirdBehaviour.BirdState.Primed))
+                        {
+                            this.GetComponent<SlingshotSound>().PlaySling();
+                        }
                     }
                     break;
                     // If bird primed
@@ -176,6 +179,7 @@
                     {
                         if (birdScript.SetState(BirdBehaviour.BirdState.Flying))
                         {
+                            this.GetComponent<SlingshotSound>().PlayRelease();
                             this.loadedBird.rigidbody2D.velocity = this.loadedBird.transform.right * this.shotPotency
                                                                    * this.ShotStrengthModifier;
                             this.shotPotency = 0;
@@ -183,7 +187,6 @@
                     }
                     break;
                 case BirdBehaviour.BirdState.Flying:
-                    Debug.Log(this.loadedBird.rigidbody2D.velocity.magnitude);
                     break;
             }
 
