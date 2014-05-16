@@ -1,0 +1,522 @@
+fileFormatVersion: 2
+guid: 55ae4449a2e834bcdbdde319ef7180e7
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Angry_Birds_Buttons_Sheet_1_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 745
+        width: 272
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_1
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 745
+        width: 236
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_2
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 753
+        width: 264
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_3
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 760
+        width: 231
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 645
+        width: 97
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_5
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 586
+        width: 159
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_6
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 598
+        width: 147
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_7
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 618
+        width: 170
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_8
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 626
+        width: 111
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_9
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 627
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_10
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 627
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_11
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 670
+        width: 67
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 551
+        width: 95
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_13
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 436
+        width: 142
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_14
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 456
+        width: 140
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_15
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 501
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_16
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 501
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_17
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 501
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_18
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 501
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_19
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 501
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 414
+        width: 64
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_21
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 286
+        width: 142
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_22
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 317
+        width: 135
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_23
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 384
+        width: 110
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_24
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 388
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_25
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 389
+        width: 103
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_26
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 390
+        width: 104
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_27
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 390
+        width: 103
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_28
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 430
+        width: 68
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 311
+        width: 96
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_30
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 270
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_31
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 275
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_32
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 167
+        width: 104
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_33
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 298
+        width: 185
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_34
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 318
+        width: 68
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 210
+        width: 96
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_36
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 137
+        width: 141
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_37
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 178
+        width: 135
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_38
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 155
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_39
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 162
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_40
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 220
+        width: 195
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_41
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 232
+        width: 66
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_42
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 136
+        width: 66
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_43
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 56
+        width: 115
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_44
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 41
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_45
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 49
+        width: 104
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_46
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 58
+        width: 101
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_47
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 145
+        width: 246
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_48
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 60
+        width: 66
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_49
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 4
+        width: 123
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_50
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 95
+        width: 59
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_51
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 58
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Angry_Birds_Buttons_Sheet_1_52
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 29
+        width: 45
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 
