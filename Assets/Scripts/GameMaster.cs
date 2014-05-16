@@ -14,6 +14,8 @@
 
         private const string Separator = "::";
 
+        public const float EndWait = 5f;
+
         #endregion
 
         #region Static Fields
@@ -82,16 +84,9 @@
             {
                 this.remainingBirds--;
                 Debug.Log(this.remainingBirds + "left!");
-                if (this.remainingBirds <= 0 && this.remainingPigs >= 1)
+                if (this.remainingBirds <= 0)
                 {
-                    // LOOSE
-                    this.WinOrLoose.text = "Level failed!";
-
-                    // Instantiate levelFinish on camera
-                    var g = (GameObject)Instantiate(Resources.Load("levelFinish"));
-                    g.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                    Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
-                    LvlInfo = new LevelInfo(false, this.remainingBirds, this.Score);
+                    SceneOver = true;
                 }
             }
         }
@@ -119,9 +114,7 @@
 
                 if (this.remainingPigs <= 0)
                 {
-                    // WIN
-                    this.WinOrLoose.text = "Level cleared!";
-                    LvlInfo = new LevelInfo(true, this.remainingBirds, this.Score);
+                    SceneOver = true;
                 }
             }
         }
@@ -142,7 +135,27 @@
         private void Update()
         {
             this.ScoreGuiText.text = DefaultScoreText + this.Score;
+
+            if (!SceneOver)
+            {
+                return;
+            }
+            EndTimer += Time.deltaTime;
+            if (!(this.EndTimer > EndWait))
+            {
+                return;
+            }
+            LevelInfo levelInfo = this.remainingPigs <= 0 ? new LevelInfo(true, this.remainingBirds, this.Score) : new LevelInfo(false, this.remainingBirds, this.Score);
+            this.StartLevelTransition(levelInfo);
+            Debug.Log("FINISHED LEVEL, INFO:");
+            Debug.Log(levelInfo.LevelWin);
+            Debug.Log(levelInfo.BirdsRemaining);
+            Debug.Log(levelInfo.Score);
         }
+
+        public float EndTimer { get; set; }
+
+        public bool SceneOver { get; set; }
 
         private void StartLevelTransition (LevelInfo lvlInfo)
         {
@@ -170,9 +183,9 @@
 
             public int BirdsRemaining { get; set; }
 
-            private bool LevelWin { get; set; }
+            public bool LevelWin { get; set; }
 
-            private int Score { get; set; }
+            public int Score { get; set; }
 
             #endregion
         }
