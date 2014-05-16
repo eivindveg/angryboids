@@ -3226,6 +3226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreGuItext: {fileID: 870438196}
+  WinOrLoose: {fileID: 10200000, guid: dfdd2d9fa04354f5c833b68c490fa6a6, type: 2}
 --- !u!82 &1465948711
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3533,6 +3534,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: 21d89d3591cbf914997aae99fd670761, type: 2}
+      propertyPath: Birds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 21d89d3591cbf914997aae99fd670761, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4.64370489
@@ -4098,7 +4103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb8b982fb0996041a41b9b4b2d746c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Birds: 01000000000000000100000000000000
+  Birds: 01000000
   ShotStrengthModifier: 23
 --- !u!120 &1946910407
 LineRenderer:

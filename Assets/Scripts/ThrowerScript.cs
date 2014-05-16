@@ -52,12 +52,12 @@
             Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, oldRotation.z + rotation));
 
             float angle = Quaternion.Angle(Quaternion.Euler(new Vector3(0,0,0)), newRotation);
-            Debug.Log(angle);
+            //Debug.Log(angle);
             if (angle <= 80) { 
                 this.loadedBird.transform.rotation = newRotation;
             }
             
-            Debug.Log("Rotating to " + this.loadedBird.transform.rotation.y);
+            //Debug.Log("Rotating to " + this.loadedBird.transform.rotation.y);
         }
 
         private void Start()
@@ -83,16 +83,11 @@
                 i++;
             }
 
-            foreach (GameObject birds in this.availableBirds)
-            {
-                Debug.Log(birds.name);
-            }
-
             // TODO Load first bird
             var firstBirdScript = this.availableBirds[0].GetComponent<BirdBehaviour>();
             if (firstBirdScript.SetState(BirdBehaviour.BirdState.Loading))
             {
-                Debug.Log("loading a bird");
+                //Debug.Log("loading a bird");
 
                 // TODO Replace with firing movement instead of teleport
                 this.loadedBirdIndex = 0;
@@ -101,6 +96,8 @@
 
             var camScript = FindObjectOfType<CameraController>();
             camScript.LocateAndAssignBirds();
+            var gm = FindObjectOfType<GameMaster>();
+            gm.LocateAndAssignBirds();
         }
 
         private void Update()
@@ -129,7 +126,7 @@
 
             lineRenderer.SetPosition(1, point2);
 
-            Debug.Log(birdScript.GetState());
+            //Debug.Log(birdScript.GetState());
             switch (birdScript.GetState())
             {
                 case BirdBehaviour.BirdState.Loading:
@@ -141,13 +138,8 @@
                     {
                         birdScript.SetState(BirdBehaviour.BirdState.Ready);
                     }
-                    else
-                    {
-                        Debug.Log(Vector3.Distance(this.loadedBird.transform.position, this.transform.position));
-                    }
                     break;
                 case BirdBehaviour.BirdState.Ready:
-                    if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
                     {
                         this.Rotate(Input.GetAxis("Vertical"));
                     }
@@ -169,7 +161,7 @@
                         if (this.shotPotency <= 1.0f)
                         {
                             this.shotPotency += Time.deltaTime / LoadTime;
-                            Debug.Log("Potency: " + this.shotPotency);
+                            //Debug.Log("Potency: " + this.shotPotency);
                         }
                     }
                     else
@@ -183,7 +175,7 @@
                     }
                     break;
                 case BirdBehaviour.BirdState.Flying:
-                    Debug.Log(this.loadedBird.rigidbody2D.velocity.magnitude);
+                    //Debug.Log(this.loadedBird.rigidbody2D.velocity.magnitude);
                     break;
             }
 

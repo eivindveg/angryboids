@@ -33,14 +33,14 @@
 		    bool LevelWin {get; set;}
 			int BirdsRemaining {get; set;}
 
-		    private int score { get; set; }
+		    int Score { get; set; }
 
 		    public LevelInfo(bool levelWin, int birdsRemaining, int score)
 			    : this()
 			{
 				this.LevelWin = levelWin;
 				this.BirdsRemaining = birdsRemaining;
-				this.score = score;
+				this.Score = score;
 			}
 		}
 
@@ -83,6 +83,8 @@
             return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : 0;
         }
 
+
+
         public void RegisterBrick(BrickCollision brick)
         {
             brick.Death += this.BlockDeathEventHandler;
@@ -118,12 +120,16 @@
 			if (e.State == BirdBehaviour.BirdState.Landed)
 			{
 				remainingBirds--;
-
+			    Debug.Log(remainingBirds + "left!");
 				if(this.remainingBirds <= 0 && this.remainingPigs >= 1) 
 				{
 					// LOOSE
 					WinOrLoose.text="Level failed!";
+
+                    // Instantiate levelFinish on camera?!
 					GameObject g = (GameObject)Instantiate(Resources.Load("levelFinish"));
+				    
+                    g.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
 					Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
 					LvlInfo = new LevelInfo(false, remainingBirds, this.Score);
 				} 
