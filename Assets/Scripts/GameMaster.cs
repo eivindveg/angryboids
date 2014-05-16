@@ -84,12 +84,9 @@
             {
                 this.remainingBirds--;
                 Debug.Log(this.remainingBirds + "left!");
-                if (this.remainingBirds <= 0 && this.remainingPigs >= 1)
+                if (this.remainingBirds <= 0)
                 {
-                    if (!IsClear)
-                    {
-                        
-                    }
+                    SceneOver = true;
                 }
             }
         }
@@ -117,7 +114,7 @@
 
                 if (this.remainingPigs <= 0)
                 {
-                    SceneOver
+                    SceneOver = true;
                 }
             }
         }
