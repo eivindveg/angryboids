@@ -4,7 +4,7 @@
 	using UnityEngine;
 	using System.Collections;
 
-	public class buttonClick : MonoBehaviour {
+	public class ButtonClick : MonoBehaviour {
 
 		public TextMesh winOrLoose;
 		public bool endState;

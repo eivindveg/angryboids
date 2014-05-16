@@ -56,6 +56,8 @@
 
         public bool IsClear { get; private set; }
 
+		public TextMesh WinOrLoose;
+
         #endregion
 
         #region Public Methods and Operators
@@ -100,12 +102,14 @@
 
                 if (this.remainingPigs <= 0)
                 {
-                    // WIN-R, WIN-R, CHIC-N, DIN-R
+					// WIN
+					WinOrLoose.text="Level cleared!"; 
+					LvlInfo = new LevelInfo(true, remainingBirds, this.Score);
                 }
             }
         }
 
-		private void OnBirdChange (BirdChangedEvent e)
+		public void OnBirdChange (BirdChangedEvent e)
 		{
 			if (e.State == BirdBehaviour.BirdState.Landed)
 			{
@@ -113,13 +117,12 @@
 
 				if(this.remainingBirds <= 0 && this.remainingPigs >= 1) 
 				{
+					// LOOSE
+					WinOrLoose.text="Level failed!";
+					GameObject g = Instantiate(Resources.Load("levelFinish"));
+					Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
 					LvlInfo = new LevelInfo(false, remainingBirds, this.Score);
-
-				} else if(this.remainingPigs <= 0)
-					LvlInfo = new LevelInfo(true, remainingBirds, this.Score);
-				{
-
-				}
+				} 
 			}
 		}
 
