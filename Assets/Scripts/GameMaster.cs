@@ -144,8 +144,9 @@
             this.ScoreGuiText.text = DefaultScoreText + this.Score;
         }
 
-        private bool LevelTransition (LevelInfo lvlInfo) {
-                    
+        private bool LevelTransition (LevelInfo lvlInfo)
+        {
+            return false;
         }
 
         #endregion
