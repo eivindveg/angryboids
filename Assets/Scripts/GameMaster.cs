@@ -1,7 +1,5 @@
 ﻿namespace Assets.Scripts
 {
-    using UnityEditor;
-
     using UnityEngine;
 
     public class GameMaster : MonoBehaviour
