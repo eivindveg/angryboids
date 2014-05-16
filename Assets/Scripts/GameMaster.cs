@@ -168,7 +168,6 @@
                 // Instantiate levelFinish on camera
                 endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
                 endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
             }
             else
             {
@@ -178,10 +177,8 @@
                 // Instantiate levelFinish on camera
                 endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
                 endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
             }
 
-            //g = (GameObject)Instantiate(Resources.Load("levelFinish"));
             endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         }
 

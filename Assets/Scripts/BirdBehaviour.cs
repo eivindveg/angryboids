@@ -149,7 +149,7 @@
                 newRotation.x = 0;
                 this.transform.rotation = newRotation;
             }
-            else if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 2f)
+            else if (this.state == BirdState.Landed && this.transform.rigidbody2D.velocity.magnitude < 1.5f)
             {
                 this.deathTimer += Time.deltaTime;
             }
@@ -158,7 +158,7 @@
                 this.deathTimer = 0;
             }
 
-            if (this.deathTimer >= 3)
+            if (this.deathTimer >= 3 || this.transform.position.y < -10f) 
             {
                 Destroy(this.gameObject);
             }
