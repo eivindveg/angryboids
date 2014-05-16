@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ButtonScript : MonoBehaviour
 {
     private float NewCameraPos;
     private Collider2D col;
+    public Boolean mute;
 
     private void Start()
     {
