@@ -3225,7 +3225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db486ca16c1bac4595c1b41046d564c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreGuItext: {fileID: 870438196}
+  ScoreGuiText: {fileID: 0}
   WinOrLoose: {fileID: 10200000, guid: dfdd2d9fa04354f5c833b68c490fa6a6, type: 2}
 --- !u!82 &1465948711
 AudioSource:

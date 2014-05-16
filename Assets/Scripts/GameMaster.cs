@@ -146,7 +146,8 @@
 
         private void StartLevelTransition (LevelInfo lvlInfo)
         {
-           
+           // lvlInfo.BirdsRemaining
+
         }
 
         #endregion
@@ -167,7 +168,7 @@
 
             #region Properties
 
-            private int BirdsRemaining { get; set; }
+            public int BirdsRemaining { get; set; }
 
             private bool LevelWin { get; set; }
 
