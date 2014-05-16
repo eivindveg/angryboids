@@ -62,6 +62,10 @@
 
         #region Public Methods and Operators
 
+		private void Update(){
+			this.ScoreGuItext.text = DefaultScoreText + this.Score;
+		}
+
         public static bool CheckHighscore(int score)
         {
             if (score > GetHighScore())
