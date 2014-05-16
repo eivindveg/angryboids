@@ -159,7 +159,8 @@
 
         private void StartLevelTransition (LevelInfo lvlInfo)
         {
-           
+           // lvlInfo.BirdsRemaining
+
         }
 
         #endregion
