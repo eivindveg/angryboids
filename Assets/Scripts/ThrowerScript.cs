@@ -102,6 +102,10 @@
 
         private void Update()
         {
+            if (GameMaster.LockControls)
+            {
+                return;
+            }
 
             Vector2 point2;
             if (this.loadedBird == null)
