@@ -159,7 +159,31 @@
 
         private void StartLevelTransition (LevelInfo lvlInfo)
         {
-           // lvlInfo.BirdsRemaining
+            GameObject g;
+
+            if (lvlInfo.LevelWin) {
+                // WIN
+                WinOrLoose.text = "Level cleared!";
+
+                // Instantiate levelFinish on camera
+                g = (GameObject)Instantiate(Resources.Load("levelFinish"));
+                g.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
+                LvlInfo = new LevelInfo(true, remainingBirds, this.Score);
+            } else {
+                // LOOSE
+                WinOrLoose.text = "Level failed!";
+
+                // Instantiate levelFinish on camera
+                g = (GameObject)Instantiate(Resources.Load("levelFinish"));
+                g.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                Destroy(GameObject.FindGameObjectWithTag("birdIcon"));
+                LvlInfo = new LevelInfo(false, remainingBirds, this.Score);
+            }
+
+
+            g = (GameObject)Instantiate(Resources.Load("levelFinish"));
+            g.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
         }
 
