@@ -15,17 +15,17 @@ namespace Assets.Scripts
         public BlockDeathEvent(BrickCollision.BrickType type, GameObject obj)
         {
             BrickCollision coll = obj.GetComponent<BrickCollision>();
-            double value = 0, hpValue = coll.Maxhp;
+            double value, hpValue = coll.Maxhp;
             if (type == BrickCollision.BrickType.Pig)
             {
-                value = 4 * hpValue;
+                value = 10 * hpValue;
             }
             else
             {
                 value = hpValue;
             }
             this.type = type;
-            this.value = (int)value;
+            this.value = (int)(value*11.3);
 
         }
 

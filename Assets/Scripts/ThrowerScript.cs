@@ -27,6 +27,8 @@
 
         private float shotPotency;
 
+        private LineRenderer lineRenderer;
+
         #endregion
 
         #region Methods
@@ -61,6 +63,9 @@
         private void Start()
         {
             this.availableBirds = new GameObject[this.Birds.Length];
+            lineRenderer = this.GetComponent<LineRenderer>();
+            lineRenderer.SetPosition(0, this.transform.position + new Vector3(0.35f, 0.25f, 0.02f));
+            lineRenderer.SetPosition(2, this.transform.position + new Vector3(-0.1f, 0.3f, 0));
 
             // TODO Populate and sort bird collection
             int i = 0;
@@ -100,13 +105,30 @@
 
         private void Update()
         {
+
+            Vector2 point2;
             if (this.loadedBird == null)
             {
                 this.loadedBirdIndex++;
                 this.LoadBird(this.loadedBirdIndex);
+
+                return;
             }
 
             var birdScript = this.loadedBird.GetComponent<BirdBehaviour>();
+
+            // Draw Slingshot
+            if (birdScript.GetState() == BirdBehaviour.BirdState.Primed)
+            {
+                point2 = loadedBird.transform.position;
+            }
+            else
+            {
+                point2 = this.transform.position;
+            }
+
+            lineRenderer.SetPosition(1, point2);
+
             Debug.Log(birdScript.GetState());
             switch (birdScript.GetState())
             {
@@ -164,6 +186,12 @@
                     Debug.Log(this.loadedBird.rigidbody2D.velocity.magnitude);
                     break;
             }
+
+            GameObject slingShotSeat = GameObject.FindGameObjectWithTag("slingshotseat");
+            point2.x += -0.2f;
+            point2.y += -0.15f;
+            slingShotSeat.transform.position = point2;
+            slingShotSeat.transform.rotation = loadedBird.transform.rotation;
         }
 
         private void Translate()
