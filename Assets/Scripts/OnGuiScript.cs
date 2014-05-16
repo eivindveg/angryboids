@@ -15,7 +15,9 @@
         private void Start()
         {
             this.cameraObject = Camera.main.transform;
-            this.transform.position = this.cameraObject.transform.position + new Vector3(0f, -0.2f, 4f);
+            this.transform.position = this.cameraObject.transform.position + new Vector3(0f, -0.2f, 2);
+            GameObject slingshot = GameObject.FindGameObjectWithTag("slingshot");
+            slingshot.SetActive(false);
         }
 
         #endregion

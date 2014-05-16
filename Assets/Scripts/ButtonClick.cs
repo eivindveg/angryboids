@@ -1,56 +1,47 @@
-﻿namespace Assets.Scripts 
+﻿namespace Assets.Scripts
 {
-    using UnityEditor;
-
     using UnityEngine;
-	using System.Collections;
 
-	public class ButtonClick : MonoBehaviour {
+    public class ButtonClick : MonoBehaviour
+    {
+        #region Fields
 
-//		private TextMesh winOrLoose;
-//		public bool EndState;
-//
-//	    public ButtonClick(TextMesh winOrLoose)
-//	    {
-//	        this.winOrLoose = winOrLoose;
-//	    }
+        private int nextScene;
 
-	    private int nextScene;
+        #endregion
 
-	    // Use this for initialization
-		void Start ()
-		{
-		    nextScene = Application.loadedLevel+1;
+        #region Methods
 
-		    if (nextScene >= Application.levelCount)
-		    {
-		        nextScene = 0;
-		    }
+        private void OnMouseUpAsButton()
+        {
+            // this object was clicked - do something
+            Debug.Log("Button pushed");
 
+            if (this.gameObject.name == "button_home")
+            {
+                Application.LoadLevel(0);
+            }
+            else if (this.gameObject.name == "button_replay")
+            {
+                Application.LoadLevel(Application.loadedLevel);
+            }
+            else if (this.gameObject.name == "button_next")
+            {
+                Application.LoadLevel(this.nextScene);
+            }
+        }
 
-		}
-		
-		// Update is called once per frame
-		void Update () {
+        // Use this for initialization
+        private void Start()
+        {
+            this.nextScene = Application.loadedLevel + 1;
 
+            if (this.nextScene >= Application.levelCount)
+            {
+                this.nextScene = 0;
+            }
+        }
 
-		}
-
-		void OnMouseUpAsButton(){
-			// this object was clicked - do something
-			Debug.Log ("Button pushed");
-
-			if (gameObject.name == "button_home") {
-				Application.LoadLevel(0);
-
-			} else if (gameObject.name == "button_replay") {
-				Application.LoadLevel(Application.loadedLevel);
-
-			} else if (gameObject.name == "button_next")
-			{
-			    Application.LoadLevel(nextScene);
-
-			}
-		}  
-	}
+        #endregion
+    }
 }
