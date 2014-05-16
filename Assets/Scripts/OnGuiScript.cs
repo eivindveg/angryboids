@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class OnGuiScript : MonoBehaviour {
+namespace Assets.Scripts
+{
+    public class OnGuiScript : MonoBehaviour {
 
-    public Transform CameraObject;
+        private Transform cameraObject;
 
-    void Start() {
-        CameraObject = Camera.main.transform;
+        void Start() {
+            this.cameraObject = Camera.main.transform;
+        }
+
+        // Update is called once per frame
+        void Update () {
+            this.transform.position = this.cameraObject.transform.position + new Vector3(0f, -0.2f, 4f);
+        }
     }
-
-	// Update is called once per frame
-	void Update () {
-        this.transform.position = CameraObject.transform.position + new Vector3(0f, -0.2f, 4f);
-	}
 }
