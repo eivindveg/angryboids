@@ -14,17 +14,27 @@
 
         private const string Separator = "::";
 
+        public const float EndWait = 5f;
+
+        #endregion
+
+        #region Static Fields
+
+        public static LevelInfo LvlInfo;
+
+        private static string levelPrefsKey;
+
         #endregion
 
         #region Fields
 
-        public GUIText ScoreGuItext;
+        public GUIText ScoreGuiText;
+
+        public TextMesh WinOrLoose;
 
         private int highScore;
 
-        private bool isClear;
-
-        private string levelPrefsKey;
+        private int remainingBirds;
 
         private int remainingPigs;
 
@@ -32,29 +42,53 @@
 
         #region Public Properties
 
+        public bool IsClear { get; private set; }
+
         public int Score { get; private set; }
 
         #endregion
 
         #region Public Methods and Operators
 
-		private void Update(){
-			this.ScoreGuItext.text = DefaultScoreText + this.Score;
-		}
-
-        public void CheckHighscore()
+        public static bool CheckHighscore(int score)
         {
-            if (this.Score > this.GetHighScore())
+            if (score > GetHighScore())
             {
-                PlayerPrefs.SetInt("HighScore", this.Score);
+                PlayerPrefs.SetInt("HighScore", score);
+                return true;
+            }
+            return false;
+        }
+
+        public static int GetHighScore()
+        {
+            string key = levelPrefsKey + Separator + "HighScore";
+
+            return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : 0;
+        }
+
+        public void LocateAndAssignBirds()
+        {
+            foreach (GameObject bird in GameObject.FindGameObjectsWithTag("bird"))
+            {
+                this.remainingBirds++;
+                Debug.Log("Attaching to bird");
+                var birdScript = bird.GetComponent<BirdBehaviour>();
+                birdScript.Changed += this.OnBirdChange;
             }
         }
 
-        public int GetHighScore()
+        public void OnBirdChange(BirdChangedEvent e)
         {
-            string key = this.levelPrefsKey + Separator + "HighScore";
-
-            return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : 0;
+            if (e.State == BirdBehaviour.BirdState.Landed)
+            {
+                this.remainingBirds--;
+                Debug.Log(this.remainingBirds + "left!");
+                if (this.remainingBirds <= 0)
+                {
+                    SceneOver = true;
+                }
+            }
         }
 
         public void RegisterBrick(BrickCollision brick)
@@ -80,7 +114,7 @@
 
                 if (this.remainingPigs <= 0)
                 {
-                    // WIN-R, WIN-R, CHIC-N, DIN-R
+                    SceneOver = true;
                 }
             }
         }
@@ -89,18 +123,71 @@
         {
             string currentScene = EditorApplication.currentScene;
             currentScene = (currentScene.Substring((currentScene.Length - 1)));
-            this.levelPrefsKey = "level" + currentScene;
+            levelPrefsKey = "level" + currentScene;
 
-            this.highScore = this.GetHighScore();
+            this.highScore = GetHighScore();
             if (this.highScore > 0)
             {
-                this.isClear = true;
+                this.IsClear = true;
             }
+        }
 
-            this.Score = 0;
-            this.ScoreGuItext.text = DefaultScoreText + this.Score;
+        private void Update()
+        {
+            this.ScoreGuiText.text = DefaultScoreText + this.Score;
+
+            if (!SceneOver)
+            {
+                return;
+            }
+            EndTimer += Time.deltaTime;
+            if (!(this.EndTimer > EndWait))
+            {
+                return;
+            }
+            LevelInfo levelInfo = this.remainingPigs <= 0 ? new LevelInfo(true, this.remainingBirds, this.Score) : new LevelInfo(false, this.remainingBirds, this.Score);
+            this.StartLevelTransition(levelInfo);
+            Debug.Log("FINISHED LEVEL, INFO:");
+            Debug.Log(levelInfo.LevelWin);
+            Debug.Log(levelInfo.BirdsRemaining);
+            Debug.Log(levelInfo.Score);
+        }
+
+        public float EndTimer { get; set; }
+
+        public bool SceneOver { get; set; }
+
+        private void StartLevelTransition (LevelInfo lvlInfo)
+        {
+           // lvlInfo.BirdsRemaining
+
         }
 
         #endregion
+
+        public struct LevelInfo
+        {
+            #region Constructors and Destructors
+
+            public LevelInfo(bool levelWin, int birdsRemaining, int score)
+                : this()
+            {
+                this.LevelWin = levelWin;
+                this.BirdsRemaining = birdsRemaining;
+                this.Score = score;
+            }
+
+            #endregion
+
+            #region Properties
+
+            public int BirdsRemaining { get; set; }
+
+            public bool LevelWin { get; set; }
+
+            public int Score { get; set; }
+
+            #endregion
+        }
     }
 }

@@ -113,17 +113,17 @@
 
         protected virtual void OnChanged()
         {
-            Debug.Log("Attempting to fire change event!");
+            //Debug.Log("Attempting to fire change event!");
             if (this.Changed != null)
             {
-                Debug.Log("Fired event!");
+                //Debug.Log("Fired event!");
                 this.Changed(new BirdChangedEvent(this.gameObject, this.state));
             }
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            Debug.Log("COLLISION!");
+            //Debug.Log("COLLISION!");
             if (this.state == BirdState.Flying)
             {
                 this.SetState(BirdState.Landed);
