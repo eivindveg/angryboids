@@ -3,6 +3,8 @@
     using UnityEngine;
 
     public delegate void BlockDeathEventHandler(BlockDeathEvent e);
+    public Boolean Mute = false;
+
 
     public class BrickCollision : MonoBehaviour
     {
