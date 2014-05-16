@@ -111,6 +111,8 @@
             {
                 this.loadedBirdIndex++;
                 this.LoadBird(this.loadedBirdIndex);
+
+                return;
             }
 
             var birdScript = this.loadedBird.GetComponent<BirdBehaviour>();
