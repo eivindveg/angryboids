@@ -22,9 +22,7 @@
 
         private int highScore;
 
-        private bool isClear;
-
-        private string levelPrefsKey;
+        private static string levelPrefsKey;
 
         private int remainingPigs;
 
@@ -32,19 +30,21 @@
 
 		public struct LevelInfo
 		{
-			bool levelWin {get; private set;}
-			int birdsRemaining {get; private set;}
-			int score {get; private set;}
+		    bool LevelWin {get; set;}
+			int BirdsRemaining {get; set;}
 
-			public LevelInfo(bool levelWin, int birdsRemaining, int score)
+		    private int score { get; set; }
+
+		    public LevelInfo(bool levelWin, int birdsRemaining, int score)
+			    : this()
 			{
-				this.levelWin = levelWin;
-				this.birdsRemaining = birdsRemaining;
+				this.LevelWin = levelWin;
+				this.BirdsRemaining = birdsRemaining;
 				this.score = score;
 			}
 		}
 
-		public static LevelInfo levelInfo;
+		public static LevelInfo LvlInfo;
 
 	 
 
@@ -54,13 +54,15 @@
 
         public int Score { get; private set; }
 
+        public bool IsClear { get; private set; }
+
         #endregion
 
         #region Public Methods and Operators
 
         public static bool CheckHighscore(int score)
         {
-            if (score > this.GetHighScore())
+            if (score > GetHighScore())
             {
                 PlayerPrefs.SetInt("HighScore", score);
 				return true;
@@ -70,7 +72,7 @@
 
         public static int GetHighScore()
         {
-            string key = this.levelPrefsKey + Separator + "HighScore";
+            string key = levelPrefsKey + Separator + "HighScore";
 
             return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : 0;
         }
@@ -105,16 +107,16 @@
 
 		private void OnBirdChange (BirdChangedEvent e)
 		{
-			if (e.GetType () == BirdBehaviour.BirdState.Landed)
+			if (e.State == BirdBehaviour.BirdState.Landed)
 			{
 				remainingBirds--;
 
 				if(this.remainingBirds <= 0 && this.remainingPigs >= 1) 
 				{
-					levelInfo = new LevelInfo(false, remainingBirds, this.Score);
+					LvlInfo = new LevelInfo(false, remainingBirds, this.Score);
 
 				} else if(this.remainingPigs <= 0)
-					levelInfo = new LevelInfo(true, remainingBirds, this.Score);
+					LvlInfo = new LevelInfo(true, remainingBirds, this.Score);
 				{
 
 				}
@@ -136,12 +138,12 @@
         {
             string currentScene = EditorApplication.currentScene;
             currentScene = (currentScene.Substring((currentScene.Length - 1)));
-            this.levelPrefsKey = "level" + currentScene;
+            levelPrefsKey = "level" + currentScene;
 
-            this.highScore = this.GetHighScore();
+            this.highScore = GetHighScore();
             if (this.highScore > 0)
             {
-                this.isClear = true;
+                this.IsClear = true;
             }
 
             this.Score = 0;
