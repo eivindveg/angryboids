@@ -102,7 +102,7 @@
         }
 
         #endregion
-
+        
         #region Methods
 
         private void BlockDeathEventHandler(BlockDeathEvent e)
