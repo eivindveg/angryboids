@@ -75,6 +75,11 @@ MonoBehaviour:
   - {fileID: 21300250, guid: 785f83372c712044d979d859febaaa9e, type: 3}
   - {fileID: 21300250, guid: 785f83372c712044d979d859febaaa9e, type: 3}
   Type: 1
+  CollisionSound:
+  - {fileID: 8300000, guid: 7443896e16755544988090f3cf08d43f, type: 3}
+  - {fileID: 8300000, guid: 4e3342c4be143b345994414dbb58cf96, type: 3}
+  - {fileID: 8300000, guid: e66ac766151dd1f42abf1fa310808326, type: 3}
+  - {fileID: 8300000, guid: 580a8e587275a514e8e33b9650cbe14b, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

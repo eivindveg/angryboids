@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.3677368, y: 0, z: 0}
+  m_LocalPosition: {x: 21.1637611, y: -.800000012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,6 +75,13 @@ MonoBehaviour:
   - {fileID: 21300292, guid: 785f83372c712044d979d859febaaa9e, type: 3}
   - {fileID: 21300292, guid: 785f83372c712044d979d859febaaa9e, type: 3}
   Type: 1
+  CollisionSound:
+  - {fileID: 8300000, guid: 216344e3738afa34a86502bac026bc97, type: 3}
+  - {fileID: 8300000, guid: 8280d238a5d27d94892faf91845af4c4, type: 3}
+  - {fileID: 8300000, guid: f501575e41540f646b7d9f85f7aae11f, type: 3}
+  - {fileID: 8300000, guid: fbe4264d7245e72459a04684281cbe07, type: 3}
+  - {fileID: 8300000, guid: 50a0a8255bc6a0d41b1302226dd43ead, type: 3}
+  - {fileID: 8300000, guid: 99802bc122cfa174f8f887429f1b9c4c, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
