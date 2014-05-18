@@ -1,7 +1,5 @@
 ﻿namespace Assets.Scripts
 {
-    using UnityEditor;
-
     using UnityEngine;
 
     public class GameMaster : MonoBehaviour
@@ -20,9 +18,9 @@
 
         #region Static Fields
 
-        public static LevelInfo LvlInfo;
-
         public static bool LockControls = false;
+
+        public static LevelInfo LvlInfo;
 
         private static string levelPrefsKey;
 
@@ -30,15 +28,15 @@
 
         #region Fields
 
-        private GUIText ScoreGuiText;
+        public TextMesh WinOrLoose;
 
         private GUIText HighScoreGuiText;
 
-        public TextMesh WinOrLoose;
-
-        private int highScore;
+        private GUIText ScoreGuiText;
 
         private GameObject endScreen;
+
+        private int highScore;
 
         private int remainingBirds;
 
@@ -133,9 +131,12 @@
 
         private void Start()
         {
-            GameObject scoreObject = (GameObject)Instantiate(Resources.Load("OnScreenText"));
-            scoreObject.transform.position = new Vector3(scoreObject.transform.position.x, 0.86f, scoreObject.transform.position.z);
-            ScoreGuiText = scoreObject.GetComponent<GUIText>();
+            var scoreObject = (GameObject)Instantiate(Resources.Load("OnScreenText"));
+            scoreObject.transform.position = new Vector3(
+                scoreObject.transform.position.x,
+                0.86f,
+                scoreObject.transform.position.z);
+            this.ScoreGuiText = scoreObject.GetComponent<GUIText>();
 
             LockControls = false;
             int level = Application.loadedLevel - 1;
@@ -145,7 +146,8 @@
             if (this.highScore > 0)
             {
                 this.IsClear = true;
-                HighScoreGuiText = ((GameObject)Instantiate(Resources.Load("OnScreenText"))).GetComponent<GUIText>();
+                this.HighScoreGuiText =
+                    ((GameObject)Instantiate(Resources.Load("OnScreenText"))).GetComponent<GUIText>();
             }
         }
 
@@ -154,11 +156,11 @@
             LockControls = true;
 
             // Faux singleton implementation.
-            if (endScreen != null)
+            if (this.endScreen != null)
             {
                 return;
             }
-            
+
             if (lvlInfo.LevelWin)
             {
                 CheckHighscore(lvlInfo.Score);
@@ -166,8 +168,8 @@
                 this.WinOrLoose.text = "Level cleared!";
                 this.Score = lvlInfo.Score;
                 // Instantiate levelFinish on camera
-                endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
-                endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                this.endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
+                this.endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             }
             else
             {
@@ -175,11 +177,11 @@
                 this.WinOrLoose.text = "Level failed!";
 
                 // Instantiate levelFinish on camera
-                endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
-                endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                this.endScreen = (GameObject)Instantiate(Resources.Load("levelFinish"));
+                this.endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             }
 
-            endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            this.endScreen.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         }
 
         private void Update()
@@ -220,7 +222,7 @@
             {
                 this.LevelWin = levelWin;
                 this.BirdsRemaining = birdsRemaining;
-                this.Score = score + birdsRemaining*10000;
+                this.Score = score + birdsRemaining * 10000;
             }
 
             #endregion
