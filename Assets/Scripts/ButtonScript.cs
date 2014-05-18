@@ -8,6 +8,7 @@ namespace Assets.Scripts
 
         private float NewCameraPos;
 
+		public AudioClip HoverSound;
         #endregion
 
         //private Collider2D col;
@@ -18,6 +19,10 @@ namespace Assets.Scripts
         {
             Camera.main.transform.position = new Vector3(pos, 0, -8.1f);
         }
+
+		private void OnMouseEnter(){
+			Camera.main.transform.audio.PlayOneShot(HoverSound);
+		}
 
         private void OnMouseUpAsButton()
         {
